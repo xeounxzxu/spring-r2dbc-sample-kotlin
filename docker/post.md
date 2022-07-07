@@ -7,10 +7,11 @@ docker network create redis-net
 ## 도커 redis 서버 실행
 
 ```
-docker run --name redis \
--p 6379:6379 \
---network redis-net \
---appendonly yea
+docker run --name redis\
+	     -p 6379:6379 \
+             --network redis-net \
+             -v my/folder:/data -d redis:latest redis-server \
+             --appendonly yes
 ```
 
 ## redis 컨테이너 접속
