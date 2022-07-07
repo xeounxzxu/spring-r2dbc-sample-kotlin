@@ -12,7 +12,7 @@ import java.sql.SQLException
 class H2Configuration {
 
     @Bean
-    @ConfigurationProperties("spring.datasource.hikari")
+    @ConfigurationProperties("datasource.h2")
     @Throws(SQLException::class)
     fun dataSource(): HikariDataSource? {
         Server.createTcpServer("-tcp", "-tcpAllowOthers", "-ifNotExists", "-tcpPort", 9095.toString() + "").start()
