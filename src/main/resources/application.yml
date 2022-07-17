@@ -14,15 +14,12 @@ spring:
       ddl-auto: create-drop
     show-sql: true
     open-in-view: false
+
+
 logging:
   level:
     org:
       hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-
-datasource:
-  h2:
-    driver-class-name: org.h2.Driver
-    jdbc-url: jdbc:h2:tcp://localhost:9095/mem:testdb;DB_CLOSE_DELAY=-1
-    username: sa
-    password:
+webclient:
+  h2-console-port: 8081
