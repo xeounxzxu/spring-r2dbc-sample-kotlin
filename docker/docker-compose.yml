@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: arm64v8/mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: qwerqwer123
+      MYSQL_DATABASE: default
+      MYSQL_USER: default
+      MYSQL_PASSWORD: qwerqwer123
+    container_name: "default"
+    volumes:
+      - ./db/maria:/var/lib/mysqlysql
+      # init.sql
+      - ./db/sql:/docker-entrypoint-initdb.d
