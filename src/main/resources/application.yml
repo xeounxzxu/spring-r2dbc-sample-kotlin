@@ -1,10 +1,8 @@
 spring:
-  sql:
-    init:
-      mode: always
-  h2:
-    console:
-      enabled: true
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/default
+    username: root
+    password: qwerqwer123
   jpa:
     defer-datasource-initialization: true
     properties:
@@ -19,7 +17,5 @@ spring:
 logging:
   level:
     org:
+      springframework.transaction: TRACE
       hibernate.type.descriptor.sql.BasicBinder: TRACE
-
-webclient:
-  h2-console-port: 8081
