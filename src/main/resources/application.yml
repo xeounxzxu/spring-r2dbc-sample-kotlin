@@ -19,3 +19,25 @@ logging:
     org:
       springframework.transaction: TRACE
       hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+
+read:
+  datasource:
+    #    url: r2dbc:mysql://localhost:3306/default
+    #    username: root
+    #    password: qwerqwer123
+    driver: mysql
+    host: localhost
+    port: 3306
+    database: default
+    username: root
+    password: qwerqwer123
+write:
+  datasource:
+    #    url: r2dbc:mysql://localhost:3306/default
+    driver: mysql
+    host: localhost
+    port: 3306
+    database: default
+    username: root
+    password: qwerqwer123
