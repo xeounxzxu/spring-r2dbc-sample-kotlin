@@ -7,7 +7,7 @@ sealed interface BaseDataSourceProperties {
 
     fun driver(): String
     fun host(): String
-    fun port(): String
+    fun port(): Int
     fun database(): String
     fun username(): String
     fun password(): String
@@ -34,7 +34,7 @@ data class ReadDataSourceProperties constructor(
 
     override fun host(): String = this.host
 
-    override fun port(): String = this.port
+    override fun port(): Int = this.port.toInt()
 
     override fun database(): String = this.database
 
@@ -64,7 +64,7 @@ data class WriteDataSourceProperties constructor(
 
     override fun host(): String = this.host
 
-    override fun port(): String = this.port
+    override fun port(): Int = this.port.toInt()
 
     override fun database(): String = this.database
 

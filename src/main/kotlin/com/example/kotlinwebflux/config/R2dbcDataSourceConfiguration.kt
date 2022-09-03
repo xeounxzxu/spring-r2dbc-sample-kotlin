@@ -8,6 +8,7 @@ import io.r2dbc.spi.ConnectionFactoryOptions.DATABASE
 import io.r2dbc.spi.ConnectionFactoryOptions.DRIVER
 import io.r2dbc.spi.ConnectionFactoryOptions.HOST
 import io.r2dbc.spi.ConnectionFactoryOptions.PASSWORD
+import io.r2dbc.spi.ConnectionFactoryOptions.PORT
 import io.r2dbc.spi.ConnectionFactoryOptions.USER
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -62,7 +63,7 @@ class R2dbcDataSourceConfiguration constructor(
         val options: ConnectionFactoryOptions = ConnectionFactoryOptions.builder()
             .option(DRIVER, properties.driver())
             .option(HOST, properties.host())
-            // .option(PORT, properties.port())
+            .option(PORT, properties.port())
             .option(USER, properties.username())
             .option(PASSWORD, properties.password())
             .option(DATABASE, properties.database()) // optional, default null, null means not specifying the database
