@@ -44,14 +44,14 @@ class R2dbcDataSourceConfiguration constructor(
     @Bean(name = ["writeConnectionFactory"])
     fun writeConnectionFactory() = getConnectionFactory(properties = writeDataSourceProperties)
 
-    @Bean
+    @Bean(name = ["writeTransactionManager"])
     fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
         R2dbcTransactionManager(connectionFactory)
 
     @Bean(name = ["readConnectionFactory"])
     fun readConnectionFactory() = getConnectionFactory(properties = readDataSourceProperties)
 
-    @Bean
+    @Bean(name = ["readTransactionManager"])
     fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
         R2dbcTransactionManager(connectionFactory)
 
