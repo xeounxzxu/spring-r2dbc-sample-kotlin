@@ -10,7 +10,6 @@ class MultiRoutingConnectionFactory : AbstractRoutingConnectionFactory() {
         TransactionSynchronizationManager.forCurrentTransaction().map {
 
             val key =
-                // if (it.isActualTransactionActive && it.currentTransactionName!!.contains(WriteDataSourceProperties.BASE_PACKAGE)) {
                 if (it.isActualTransactionActive) {
                     WriteDataSourceProperties.KEY
                 } else {
