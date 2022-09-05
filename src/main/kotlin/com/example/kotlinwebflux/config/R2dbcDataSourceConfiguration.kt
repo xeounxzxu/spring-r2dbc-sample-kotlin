@@ -25,8 +25,10 @@ import java.time.Duration
     ]
 )
 class R2dbcDataSourceConfiguration constructor(
-    private val readDataSourceProperties: ReadDataSourceProperties,
-    private val writeDataSourceProperties: WriteDataSourceProperties,
+    @Qualifier("read.datasource-com.example.kotlinwebflux.config.ReadDataSourceProperties")
+    private val readDataSourceProperties: BaseDataSourceProperties,
+    @Qualifier("write.datasource-com.example.kotlinwebflux.config.WriteDataSourceProperties")
+    private val writeDataSourceProperties: BaseDataSourceProperties,
 ) : AbstractR2dbcConfiguration() {
 
     @Bean(name = ["connectionFactory"])

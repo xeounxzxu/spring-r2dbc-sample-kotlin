@@ -26,8 +26,6 @@ data class ReadDataSourceProperties constructor(
 
     companion object {
         const val KEY = "read"
-        const val BASE_PACKAGE = "com.example.kotlinwebflux.repository.read"
-        const val TRANSACTION_MANAGER = "readTransactionManager"
     }
 
     override fun driver(): String = this.driver
@@ -56,8 +54,6 @@ data class WriteDataSourceProperties constructor(
 
     companion object {
         const val KEY = "write"
-        const val BASE_PACKAGE = "com.example.kotlinwebflux.repository.write"
-        const val TRANSACTION_MANAGER = "writeTransactionManager"
     }
 
     override fun driver(): String = this.driver
