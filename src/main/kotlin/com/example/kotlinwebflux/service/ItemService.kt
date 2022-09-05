@@ -1,5 +1,7 @@
 package com.example.kotlinwebflux.service
 
+import com.example.kotlinwebflux.config.extend.MultiRouting
+import com.example.kotlinwebflux.config.extend.MultiRoutingType
 import com.example.kotlinwebflux.domain.Item
 import com.example.kotlinwebflux.repository.ItemRepository
 import org.springframework.stereotype.Service
@@ -19,6 +21,7 @@ class ItemService constructor(
     @Deprecated("not work method ... check point #1")
     fun get(id: Long): Mono<Item> = itemRepository.findById(id)
 
+    @MultiRouting(MultiRoutingType.WRITE)
     @Transactional(value = "writeTransactionManager", readOnly = true)
     fun get(name: String): Mono<Item> = itemRepository.findByName(name)
 }
