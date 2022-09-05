@@ -1,31 +1,16 @@
 spring:
-  r2dbc:
-    url: r2dbc:mysql://localhost:3306/default
-    username: root
-    password: qwerqwer123
-  jpa:
-    defer-datasource-initialization: true
-    properties:
-      hibernate:
-        format_sql: true
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    open-in-view: false
 
+  main:
+    allow-bean-definition-overriding: true
 
 logging:
   level:
     org:
       springframework.transaction: TRACE
-      hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 
 read:
   datasource:
-    #    url: r2dbc:mysql://localhost:3306/default
-    #    username: root
-    #    password: qwerqwer123
     driver: mysql
     host: localhost
     port: 3306
@@ -34,7 +19,6 @@ read:
     password: qwerqwer123
 write:
   datasource:
-    #    url: r2dbc:mysql://localhost:3306/default
     driver: mysql
     host: localhost
     port: 3306
