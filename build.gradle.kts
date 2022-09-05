@@ -30,9 +30,6 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
     implementation("io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64")
 
-    // // 비동기 처리 RDBMS
-    // implementation("io.r2dbc:r2dbc-h2")
-
     implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
     implementation("org.springframework.data:spring-data-r2dbc")
 
