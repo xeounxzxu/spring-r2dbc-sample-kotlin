@@ -21,6 +21,8 @@ class ItemService constructor(
     @Deprecated("not work method ... check point #1")
     fun get(id: Long): Mono<Item> = itemRepository.findById(id)
 
+    // todo: Multi DataSource Type Change AOP
+    // this change to by datasource ...
     @MultiRouting(MultiRoutingType.WRITE)
     @Transactional(value = "writeTransactionManager", readOnly = true)
     fun get(name: String): Mono<Item> = itemRepository.findByName(name)
