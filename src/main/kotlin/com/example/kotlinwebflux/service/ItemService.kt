@@ -4,6 +4,7 @@ import com.example.kotlinwebflux.config.extend.MultiRouting
 import com.example.kotlinwebflux.config.extend.MultiRoutingType
 import com.example.kotlinwebflux.domain.Item
 import com.example.kotlinwebflux.repository.ItemRepository
+import com.example.kotlinwebflux.service.data.ItemInfo
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Flux
@@ -25,5 +26,5 @@ class ItemService constructor(
     // this change to by datasource ...
     @MultiRouting(MultiRoutingType.WRITE)
     @Transactional(value = "writeTransactionManager", readOnly = true)
-    fun get(name: String): Mono<Item> = itemRepository.findByName(name)
+    fun get(name: String): Mono<ItemInfo> = itemRepository.findByName(name, ItemInfo::class.java)
 }

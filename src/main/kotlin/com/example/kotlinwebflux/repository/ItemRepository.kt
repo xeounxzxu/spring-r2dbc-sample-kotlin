@@ -9,4 +9,6 @@ import reactor.core.publisher.Mono
 interface ItemRepository : R2dbcRepository<Item, Long> {
 
     fun findByName(name: String): Mono<Item>
+
+    fun <T> findByName(name: String, type: Class<T>): Mono<T>
 }

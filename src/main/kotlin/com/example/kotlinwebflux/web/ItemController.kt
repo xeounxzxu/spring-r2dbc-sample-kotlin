@@ -2,6 +2,7 @@ package com.example.kotlinwebflux.web
 
 import com.example.kotlinwebflux.domain.Item
 import com.example.kotlinwebflux.service.ItemService
+import com.example.kotlinwebflux.service.data.ItemInfo
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -23,5 +24,5 @@ constructor(
     fun get(@PathVariable id: Long): Mono<Item> = itemService.get(id)
 
     @GetMapping("/name")
-    fun get(name: String): Mono<Item> = itemService.get(name)
+    fun get(name: String): Mono<ItemInfo> = itemService.get(name)
 }
