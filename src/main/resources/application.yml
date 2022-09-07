@@ -6,6 +6,7 @@ spring:
 logging:
   level:
     org:
+      springframework.r2dbc: TRACE
       springframework.transaction: TRACE
 
 
