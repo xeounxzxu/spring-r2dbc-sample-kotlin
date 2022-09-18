@@ -4,6 +4,7 @@ import com.example.kotlinwebflux.config.extend.MultiRouting
 import com.example.kotlinwebflux.config.extend.MultiRoutingType
 import com.example.kotlinwebflux.domain.Item
 import com.example.kotlinwebflux.repository.ItemRepository
+import com.example.kotlinwebflux.service.data.ItemDTO
 import com.example.kotlinwebflux.service.data.ItemInfo
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,6 +15,9 @@ import reactor.core.publisher.Mono
 class ItemService constructor(
     private val itemRepository: ItemRepository,
 ) {
+
+    @Transactional(value = "writeTransactionManager")
+    fun created(dto: ItemDTO): Mono<Item> = itemRepository.save(dto.toCreatedStateEntity())
 
     @Transactional(value = "writeTransactionManager", readOnly = true)
     fun getAll(): Flux<Item> = itemRepository.findAll()

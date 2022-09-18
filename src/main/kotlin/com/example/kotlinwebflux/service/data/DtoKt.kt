@@ -1,5 +1,6 @@
 package com.example.kotlinwebflux.service.data
 
+import com.example.kotlinwebflux.domain.Item
 import org.springframework.beans.factory.annotation.Value
 
 /**
@@ -12,4 +13,19 @@ interface ItemInfo {
      */
     @Value("#{target.name}")
     fun getName(): String
+}
+
+/**
+ * Item Save Entity DTO
+ */
+data class ItemDTO constructor(
+    val name: String,
+    val count: Int = 0,
+) {
+
+    // normal state entity type
+    fun toCreatedStateEntity() = Item(
+        name = name,
+        count = count
+    )
 }

@@ -1,12 +1,16 @@
 spring:
-
   main:
     allow-bean-definition-overriding: true
 
 logging:
   level:
+    io.r2dbc.mysql.QUERY: DEBUG
+    io.r2dbc.mysql.PARAM: DEBUG
+
     org:
+      # R2dbc
       springframework.r2dbc: TRACE
+      # transaction
       springframework.transaction: TRACE
 
 read:
