@@ -31,6 +31,22 @@ class R2dbcDataSourceConfiguration constructor(
     private val writeDataSourceProperties: BaseDataSourceProperties,
 ) : AbstractR2dbcConfiguration() {
 
+    // /**
+    //  * configuration converters class
+    //  */
+    // override fun getCustomConverters(): MutableList<Any> = mutableListOf(
+    //     ReadingDateConverter()
+    // )
+
+    // override fun r2dbcConverter(
+    //     mappingContext: R2dbcMappingContext,
+    //     r2dbcCustomConversions: R2dbcCustomConversions
+    // ): MappingR2dbcConverter {
+    //
+    //     R2dbcCustomConversions.of(MySqlDialect.INSTANCE, converters)
+    //     return super.r2dbcConverter(mappingContext, r2dbcCustomConversions)
+    // }
+
     @Bean(name = ["connectionFactory"])
     override fun connectionFactory(): ConnectionFactory = MultiRoutingConnectionFactory().apply {
 
