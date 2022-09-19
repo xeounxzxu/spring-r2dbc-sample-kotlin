@@ -26,14 +26,16 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.projectreactor:reactor-test")
     implementation("io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64")
-
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
     implementation("org.springframework.data:spring-data-r2dbc")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
-    implementation("org.springframework.boot:spring-boot-starter-aop")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 }
 
 tasks.withType<KotlinCompile> {
