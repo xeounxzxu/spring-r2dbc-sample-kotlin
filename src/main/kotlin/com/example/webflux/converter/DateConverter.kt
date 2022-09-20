@@ -1,4 +1,4 @@
-package com.example.kotlinwebflux.converter
+package com.example.webflux.converter
 
 import io.r2dbc.spi.Row
 import org.springframework.core.convert.converter.Converter

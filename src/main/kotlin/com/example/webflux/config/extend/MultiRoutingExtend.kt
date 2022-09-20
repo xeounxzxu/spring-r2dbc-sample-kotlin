@@ -1,6 +1,6 @@
-package com.example.kotlinwebflux.config.extend
+package com.example.webflux.config.extend
 
-import com.example.kotlinwebflux.config.MultiRoutingConnectionFactory
+import com.example.webflux.config.MultiRoutingConnectionFactory
 import io.r2dbc.spi.ConnectionFactory
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
@@ -19,21 +19,21 @@ annotation class MultiRouting constructor(
 
 }
 
-@Aspect
-@Component
+// @Aspect
+// @Component
 class MultiRoutingAspect constructor(
     private val connectionFactory: ConnectionFactory,
 ) {
 
-    @Around("@annotation(com.example.kotlinwebflux.config.extend.MultiRouting)")
+    @Around("@annotation(com.example.webflux.config.extend.MultiRouting)")
     fun multiRouting(joinPoint: ProceedingJoinPoint): Any {
 
         val annotation = (joinPoint.signature as MethodSignature).method.getAnnotation(MultiRouting::class.java)
 
-        // database type
-        val databaseType = annotation.type.name
-
-        val factory = (connectionFactory as MultiRoutingConnectionFactory)
+        // // database type
+        // val databaseType = annotation.type.name
+        //
+        // val factory = (connectionFactory as MultiRoutingConnectionFactory)
 
         return joinPoint.proceed()
     }

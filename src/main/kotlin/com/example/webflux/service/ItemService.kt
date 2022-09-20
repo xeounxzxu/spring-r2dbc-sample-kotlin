@@ -1,9 +1,9 @@
-package com.example.kotlinwebflux.service
+package com.example.webflux.service
 
-import com.example.kotlinwebflux.config.extend.MultiRouting
-import com.example.kotlinwebflux.config.extend.MultiRoutingType
-import com.example.kotlinwebflux.repository.ItemRepository
-import com.example.kotlinwebflux.service.data.ItemInfo
+import com.example.webflux.config.extend.MultiRouting
+import com.example.webflux.config.extend.MultiRoutingType
+import com.example.webflux.repository.ItemRepository
+import com.example.webflux.service.data.ItemInfo
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

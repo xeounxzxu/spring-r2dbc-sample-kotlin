@@ -1,6 +1,6 @@
-package com.example.kotlinwebflux.repository
+package com.example.webflux.repository
 
-import com.example.kotlinwebflux.domain.Item
+import com.example.webflux.domain.Item
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
 

@@ -1,4 +1,4 @@
-package com.example.kotlinwebflux.enums
+package com.example.webflux.enums
 
 enum class ItemType {
 

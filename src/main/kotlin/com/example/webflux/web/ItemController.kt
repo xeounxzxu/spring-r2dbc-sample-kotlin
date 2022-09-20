@@ -1,7 +1,7 @@
-package com.example.kotlinwebflux.web
+package com.example.webflux.web
 
-import com.example.kotlinwebflux.service.ItemService
-import com.example.kotlinwebflux.service.data.ItemInfo
+import com.example.webflux.service.ItemService
+import com.example.webflux.service.data.ItemInfo
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

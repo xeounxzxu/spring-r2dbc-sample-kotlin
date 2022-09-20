@@ -1,4 +1,4 @@
-package com.example.kotlinwebflux.config
+package com.example.webflux.config
 
 import org.springframework.r2dbc.connection.lookup.AbstractRoutingConnectionFactory
 import org.springframework.transaction.reactive.TransactionSynchronizationManager

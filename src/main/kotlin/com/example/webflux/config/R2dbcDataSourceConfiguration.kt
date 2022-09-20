@@ -1,4 +1,4 @@
-package com.example.kotlinwebflux.config
+package com.example.webflux.config
 
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
@@ -14,14 +14,20 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.r2dbc.connection.R2dbcTransactionManager
 import java.time.Duration
 
 @Configuration
+@EnableR2dbcRepositories(
+    basePackages = [
+        "com.example.webflux.repository"
+    ]
+)
 class R2dbcDataSourceConfiguration constructor(
-    @Qualifier("read.datasource-com.example.kotlinwebflux.config.ReadDataSourceProperties")
+    @Qualifier("read.datasource-com.example.webflux.config.ReadDataSourceProperties")
     private val readDataSourceProperties: BaseDataSourceProperties,
-    @Qualifier("write.datasource-com.example.kotlinwebflux.config.WriteDataSourceProperties")
+    @Qualifier("write.datasource-com.example.webflux.config.WriteDataSourceProperties")
     private val writeDataSourceProperties: BaseDataSourceProperties,
 ) : AbstractR2dbcConfiguration() {
 

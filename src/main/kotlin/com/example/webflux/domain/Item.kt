@@ -1,6 +1,6 @@
-package com.example.kotlinwebflux.domain
+package com.example.webflux.domain
 
-import com.example.kotlinwebflux.enums.ItemType
+import com.example.webflux.enums.ItemType
 import javax.persistence.Id
 import javax.persistence.Table
 
