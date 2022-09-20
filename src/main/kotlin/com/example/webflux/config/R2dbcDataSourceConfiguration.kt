@@ -1,5 +1,6 @@
 package com.example.webflux.config
 
+import com.example.webflux.converter.ItemTypeWritingConverter
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.r2dbc.connection.R2dbcTransactionManager
+import org.springframework.transaction.TransactionManager
 import java.time.Duration
 
 @Configuration
@@ -31,12 +33,12 @@ class R2dbcDataSourceConfiguration constructor(
     private val writeDataSourceProperties: BaseDataSourceProperties,
 ) : AbstractR2dbcConfiguration() {
 
-    // /**
-    //  * configuration converters class
-    //  */
-    // override fun getCustomConverters(): MutableList<Any> = mutableListOf(
-    //     ReadingDateConverter()
-    // )
+    /**
+     * configuration converters class
+     */
+    override fun getCustomConverters(): MutableList<Any> = mutableListOf(
+        ItemTypeWritingConverter()
+    )
 
     // override fun r2dbcConverter(
     //     mappingContext: R2dbcMappingContext,
@@ -51,7 +53,8 @@ class R2dbcDataSourceConfiguration constructor(
     override fun connectionFactory(): ConnectionFactory = MultiRoutingConnectionFactory().apply {
 
         val factories: HashMap<String, ConnectionFactory> = hashMapOf(
-            WriteDataSourceProperties.KEY to writeConnectionFactory()
+            WriteDataSourceProperties.KEY to writeConnectionFactory(),
+            ReadDataSourceProperties.KEY to readConnectionFactory()
         )
 
         this.setTargetConnectionFactories(factories)
@@ -62,16 +65,16 @@ class R2dbcDataSourceConfiguration constructor(
     @Bean(name = ["writeConnectionFactory"])
     fun writeConnectionFactory() = getConnectionFactory(properties = writeDataSourceProperties)
 
-    @Bean(name = ["writeTransactionManager"])
-    fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
-        R2dbcTransactionManager(connectionFactory)
-
+    // @Bean(name = ["writeTransactionManager"])
+    // fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
+    //     R2dbcTransactionManager(connectionFactory)
+    //
     @Bean(name = ["readConnectionFactory"])
     fun readConnectionFactory() = getConnectionFactory(properties = readDataSourceProperties)
-
-    @Bean(name = ["readTransactionManager"])
-    fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
-        R2dbcTransactionManager(connectionFactory)
+    //
+    // @Bean(name = ["readTransactionManager"])
+    // fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
+    //     R2dbcTransactionManager(connectionFactory)
 
     /**
      * get Connection factory
@@ -90,6 +93,12 @@ class R2dbcDataSourceConfiguration constructor(
 
         return ConnectionFactories.get(options)
     }
+
+    @Bean
+    fun transactionManager(
+        @Qualifier("connectionFactory")
+        connectionFactory: ConnectionFactory,
+    ): TransactionManager = R2dbcTransactionManager(connectionFactory)
 }
 
 
