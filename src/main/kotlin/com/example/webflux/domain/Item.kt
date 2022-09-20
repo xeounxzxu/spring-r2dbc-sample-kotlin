@@ -1,8 +1,8 @@
 package com.example.webflux.domain
 
 import com.example.webflux.enums.ItemType
-import javax.persistence.Id
-import javax.persistence.Table
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 
 @Table(name = "item")
 data class Item constructor(
