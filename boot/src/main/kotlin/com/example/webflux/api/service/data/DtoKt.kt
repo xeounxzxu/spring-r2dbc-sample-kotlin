@@ -1,4 +1,4 @@
-package com.example.webflux.boot.api.service.data
+package com.example.webflux.api.service.data
 
 import com.example.webflux.data.domain.Item
 import org.springframework.beans.factory.annotation.Value
