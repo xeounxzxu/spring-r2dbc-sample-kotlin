@@ -22,7 +22,6 @@ class ItemService constructor(
     suspend fun getAll(): Flow<Item> = itemRepository.findAll()
 
     @Transactional(value = "writeTransactionManager", readOnly = true)
-    @Deprecated("not work method ... check point #1")
     suspend fun get(id: Long): Item? = itemRepository.findById(id)
 
     // todo: Multi DataSource Type Change AOP
