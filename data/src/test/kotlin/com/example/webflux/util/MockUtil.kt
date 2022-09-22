@@ -1,4 +1,4 @@
-package com.example.webflux.data.util
+package com.example.webflux.util
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule

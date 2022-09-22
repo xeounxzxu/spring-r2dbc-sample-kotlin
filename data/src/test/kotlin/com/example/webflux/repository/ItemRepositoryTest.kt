@@ -1,4 +1,4 @@
-package com.example.webflux.data.repository
+package com.example.webflux.repository
 
 import io.r2dbc.h2.H2ConnectionFactory
 import io.r2dbc.h2.H2ConnectionOption
@@ -26,14 +26,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @TestConfiguration
 @ComponentScan(
-    basePackages = ["com.example.webflux.data.repository"],
+    basePackages = ["com.example.webflux.repository"],
     excludeFilters = [ComponentScan.Filter(
         type = FilterType.ASSIGNABLE_TYPE,
         classes = []
     )]
 )
 @EnableR2dbcRepositories(
-    basePackages = ["com.example.webflux.data.repository"]
+    basePackages = ["com.example.webflux.repository"]
 )
 class ItemRepositoryTestConfiguration constructor(
     // private val defaultR2dbcCustomConversions: R2dbcCustomConversions
