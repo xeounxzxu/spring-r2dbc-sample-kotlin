@@ -80,7 +80,7 @@ internal class ItemRepositoryTest {
     private lateinit var itemRepository: ItemRepository
 
     @Test
-    fun `findByName 조회 테스트`() = runTest {
+    fun `이름별 조회 테스트 케이스`() = runTest {
 
         // val mock: Map<String, Any> =
         //     (MockUtil.readJsonFileToClass("json/item/item-data1.json", Map::class.java) as Map<String, Any>?)!!
