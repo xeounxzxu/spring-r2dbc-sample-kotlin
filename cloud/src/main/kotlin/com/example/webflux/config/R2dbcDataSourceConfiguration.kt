@@ -1,4 +1,4 @@
-package com.example.webflux.cloud.config
+package com.example.webflux.config
 
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
@@ -22,13 +22,13 @@ import java.time.Duration
 @Configuration
 @EnableR2dbcRepositories(
     basePackages = [
-        "com.example.webflux.data.repository"
+        "com.example.webflux.repository"
     ]
 )
 class R2dbcDataSourceConfiguration constructor(
-    @Qualifier("read.datasource-com.example.webflux.cloud.config.ReadDataSourceProperties")
+    @Qualifier("read.datasource-com.example.webflux.config.ReadDataSourceProperties")
     private val readDataSourceProperties: BaseDataSourceProperties,
-    @Qualifier("write.datasource-com.example.webflux.cloud.config.WriteDataSourceProperties")
+    @Qualifier("write.datasource-com.example.webflux.config.WriteDataSourceProperties")
     private val writeDataSourceProperties: BaseDataSourceProperties,
 ) : AbstractR2dbcConfiguration() {
 

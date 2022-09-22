@@ -1,6 +1,6 @@
-package com.example.webflux.data.domain
+package com.example.webflux.domain
 
-import com.example.webflux.data.enums.ItemType
+import com.example.webflux.enums.ItemType
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 

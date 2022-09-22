@@ -1,4 +1,4 @@
-package com.example.webflux.cloud.config
+package com.example.webflux.config
 
 import org.slf4j.LoggerFactory
 import org.springframework.r2dbc.connection.lookup.AbstractRoutingConnectionFactory

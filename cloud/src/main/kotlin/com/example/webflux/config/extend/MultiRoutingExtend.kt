@@ -1,4 +1,4 @@
-package com.example.webflux.cloud.config.extend
+package com.example.webflux.config.extend
 
 import io.r2dbc.spi.ConnectionFactory
 import org.aspectj.lang.ProceedingJoinPoint

@@ -1,4 +1,4 @@
-package com.example.webflux.data.enums
+package com.example.webflux.enums
 
 enum class ItemType {
 
