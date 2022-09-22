@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ItemRepository : CoroutineCrudRepository<Item, Long> {
 
-    fun findByName(name: String): Item
+    suspend fun findByName(name: String): Item?
 
     suspend fun <T> findByName(name: String, type: Class<T>): T?
 }
