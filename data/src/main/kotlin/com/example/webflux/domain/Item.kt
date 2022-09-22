@@ -8,7 +8,7 @@ import org.springframework.data.relational.core.mapping.Table
 data class Item constructor(
     @Id
     val id: Long?,
-    val name: String,
+    val name: String?,
     val type: ItemType?,
     val count: Int?,
     val createdAt: Long?,

@@ -59,8 +59,9 @@ subprojects {
         implementation("org.springframework.data:spring-data-r2dbc")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testImplementation("io.projectreactor:reactor-test")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+        testImplementation("io.projectreactor:reactor-test")
+        testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
     }
 
 }
