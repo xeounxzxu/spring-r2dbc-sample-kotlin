@@ -1,12 +1,12 @@
 package com.example.webflux.converter
 
-// import org.springframework.data.r2dbc.convert.EnumWriteSupport
-// import org.springframework.core.convert.converter.Converter
-// import org.springframework.data.convert.WritingConverter
-//
-// @WritingConverter
-// class ItemTypeWritingConverter : Converter<String, ItemType> {
-//
-//     override fun convert(source: String): ItemType? = ItemType.valueOf(source)
-// }
-// class ItemTypeConverter : EnumWriteSupport<ItemType>
+import com.example.webflux.constants.ItemType
+import org.springframework.data.convert.WritingConverter
+import org.springframework.data.r2dbc.convert.EnumWriteSupport
+
+@WritingConverter
+class ItemTypeConverter : EnumWriteSupport<ItemType>() {
+    override fun convert(enumInstance: ItemType): ItemType {
+        return super.convert(enumInstance)
+    }
+}

@@ -1,5 +1,6 @@
 package com.example.webflux.config
 
+import com.example.webflux.converter.ItemTypeConverter
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
@@ -36,9 +37,8 @@ class R2dbcDataSourceConfiguration constructor(
     //  * configuration converters class
     //  */
     // override fun getCustomConverters(): MutableList<Any> = mutableListOf(
-    //     ItemTypeWritingConverter()
+    //     ItemTypeConverter()
     // )
-
     // override fun r2dbcConverter(
     //     mappingContext: R2dbcMappingContext,
     //     r2dbcCustomConversions: R2dbcCustomConversions
@@ -64,16 +64,16 @@ class R2dbcDataSourceConfiguration constructor(
     @Bean(name = ["writeConnectionFactory"])
     fun writeConnectionFactory() = getConnectionFactory(properties = writeDataSourceProperties)
 
-    // @Bean(name = ["writeTransactionManager"])
-    // fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
-    //     R2dbcTransactionManager(connectionFactory)
-    //
+    @Bean(name = ["writeTransactionManager"])
+    fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
+        R2dbcTransactionManager(connectionFactory)
+
     @Bean(name = ["readConnectionFactory"])
     fun readConnectionFactory() = getConnectionFactory(properties = readDataSourceProperties)
-    //
-    // @Bean(name = ["readTransactionManager"])
-    // fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
-    //     R2dbcTransactionManager(connectionFactory)
+
+    @Bean(name = ["readTransactionManager"])
+    fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
+        R2dbcTransactionManager(connectionFactory)
 
     /**
      * get Connection factory
