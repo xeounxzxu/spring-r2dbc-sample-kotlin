@@ -3,7 +3,7 @@ package com.example.webflux.api.service
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.api.service.data.ItemInfo
 import com.example.webflux.domain.Item
-import com.example.webflux.data.repository.ItemRepository
+import com.example.webflux.repository.ItemRepository
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

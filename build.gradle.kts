@@ -68,19 +68,20 @@ subprojects {
 project("cloud") {
 
     dependencies {
-
+        implementation(project(":share"))
     }
 }
 
 project("data") {
 
     dependencies {
-
+        implementation(project(":share"))
     }
 }
 project("boot") {
 
     dependencies {
+        implementation(project(":share"))
         implementation(project(":cloud"))
         implementation(project(":data"))
     }
