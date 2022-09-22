@@ -1,6 +1,6 @@
 package com.example.webflux.api.service.data
 
-import com.example.webflux.data.domain.Item
+import com.example.webflux.domain.Item
 import org.springframework.beans.factory.annotation.Value
 
 /**

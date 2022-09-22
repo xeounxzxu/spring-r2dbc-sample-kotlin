@@ -4,7 +4,7 @@ package com.example.webflux.api.web
 import com.example.webflux.api.service.ItemService
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.api.service.data.ItemInfo
-import com.example.webflux.data.domain.Item
+import com.example.webflux.domain.Item
 import kotlinx.coroutines.flow.Flow
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
