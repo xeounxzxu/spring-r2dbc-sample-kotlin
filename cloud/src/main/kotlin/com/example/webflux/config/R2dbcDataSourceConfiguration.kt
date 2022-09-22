@@ -1,6 +1,5 @@
 package com.example.webflux.config
 
-import com.example.webflux.converter.ItemTypeConverter
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
