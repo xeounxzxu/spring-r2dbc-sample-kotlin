@@ -1,7 +1,6 @@
 {
-  "id": 1,
-  "name": "test",
-  "type": null,
+  "name": "test111",
+  "type": "WAIT",
   "count": 0,
   "limitCount": 100,
   "createdAt": 1663051887146

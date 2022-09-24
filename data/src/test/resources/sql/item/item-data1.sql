@@ -1,2 +1,2 @@
-insert into item (name, type, count, created_at)
-values ('test', null, 0, 1663051887146);
+insert into item (name, type, count, limit_count, created_at)
+values ('test', null, 0, 100, 1663051887146);

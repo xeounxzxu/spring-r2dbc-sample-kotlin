@@ -4,22 +4,35 @@ import com.example.webflux.constants.ItemType
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
+/**
+ * Product Entity
+ */
 @Table(name = "item")
 data class Item constructor(
     @Id
     val id: Long?,
     val name: String?,
     val type: ItemType?,
-    val count: Int?,
+    // default is 0
+    val count: Int,
+    // this column is person limit sold count
+    val limitCount: Int,
     val createdAt: Long?,
 ) {
 
-    // createdStateEntity
-    constructor(name: String, type: ItemType = ItemType.WAIT, count: Int = 0) : this(
+    // created new item(product) constructor
+    constructor(
+        name: String,
+        type: ItemType = ItemType.WAIT,
+        count: Int = 0,
+        limitCount: Int = 0,
+        createdAt: Long? = System.currentTimeMillis(),
+    ) : this(
         id = null,
         name = name,
         type = type,
         count = count,
-        createdAt = System.currentTimeMillis()
+        limitCount = limitCount,
+        createdAt = createdAt
     )
 }

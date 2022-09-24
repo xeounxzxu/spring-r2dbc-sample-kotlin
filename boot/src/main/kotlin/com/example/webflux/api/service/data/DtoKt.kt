@@ -21,11 +21,13 @@ interface ItemInfo {
 data class ItemDTO constructor(
     val name: String,
     val count: Int = 0,
+    val limitCount: Int = 0,
 ) {
 
-    // normal state entity type
-    fun toCreatedStateEntity() = Item(
+    // new item data
+    fun toNew() = Item(
         name = name,
-        count = count
+        count = count,
+        limitCount = limitCount
     )
 }
