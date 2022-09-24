@@ -81,10 +81,20 @@ internal class ItemRepositoryTest {
     @Autowired
     private lateinit var itemRepository: ItemRepository
 
-    // @Test
-    // fun `아이템 저장`() {
-    //
-    // }
+    @Test
+    fun `아이템 저장`() = runTest {
+
+        val mock =
+            MockUtil.readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
+
+        val entity = itemRepository.save(mock)
+
+        assertNotNull(entity.id)
+        assertEquals(mock.name, entity.name)
+        assertEquals(mock.type, entity.type)
+        assertEquals(mock.count, entity.count)
+        assertEquals(mock.createdAt, entity.createdAt)
+    }
 
     @Test
     fun `이름별 조회 테스트 케이스`() = runTest {
