@@ -3,6 +3,7 @@ package com.example.webflux.api.service
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.api.service.data.ItemInfo
 import com.example.webflux.domain.Item
+import com.example.webflux.querydsl.ItemQuerydslRepository
 import com.example.webflux.repository.ItemRepository
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ItemService constructor(
     private val itemRepository: ItemRepository,
+    private val itemQuerydslRepository: ItemQuerydslRepository,
 ) {
 
     @Transactional(value = "transactionManager")

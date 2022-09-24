@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.daemon.common.isDaemonEnabled
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    kotlin("kapt") version "1.7.10"
 }
 
 repositories {
@@ -57,6 +57,10 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-aop")
         implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
         implementation("org.springframework.data:spring-data-r2dbc")
+
+        // add querydsl lib
+        implementation("com.infobip:infobip-spring-data-r2dbc-querydsl-boot-starter:6.2.0")
+        kapt("com.infobip:infobip-spring-data-jdbc-annotation-processor-common:6.2.0")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
