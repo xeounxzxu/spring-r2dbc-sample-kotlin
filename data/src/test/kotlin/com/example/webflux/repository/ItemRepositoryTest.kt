@@ -1,5 +1,7 @@
 package com.example.webflux.repository
 
+import com.example.webflux.domain.Item
+import com.example.webflux.util.MockUtil
 import io.r2dbc.h2.H2ConnectionFactory
 import io.r2dbc.h2.H2ConnectionOption
 import io.r2dbc.spi.ConnectionFactory
@@ -79,26 +81,23 @@ internal class ItemRepositoryTest {
     @Autowired
     private lateinit var itemRepository: ItemRepository
 
+    // @Test
+    // fun `아이템 저장`() {
+    //
+    // }
+
     @Test
     fun `이름별 조회 테스트 케이스`() = runTest {
 
-        // val mock: Map<String, Any> =
-        //     (MockUtil.readJsonFileToClass("json/item/item-data1.json", Map::class.java) as Map<String, Any>?)!!
+        val mock =
+            MockUtil.readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
 
-        val name = "test"
+        val entity = itemRepository.findByName(mock.name!!)!!
 
-        val count = 0
-
-        // val type = ItemType.WAIT
-
-        val createdAt = 1663051887146
-
-        val entity = itemRepository.findByName(name)!!
-
-        assertNotNull(entity.id)
-        assertEquals(name, entity.name)
-        // assertEquals(type, entity.type)
-        assertEquals(count, entity.count)
-        assertEquals(createdAt, entity.createdAt)
+        assertEquals(mock.id!!, entity.id)
+        assertEquals(mock.name, entity.name)
+        assertEquals(mock.type, entity.type)
+        assertEquals(mock.count, entity.count)
+        assertEquals(mock.createdAt, entity.createdAt)
     }
 }
