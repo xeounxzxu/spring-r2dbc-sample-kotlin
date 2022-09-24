@@ -14,7 +14,7 @@ class ItemService constructor(
 ) {
 
     @Transactional(value = "transactionManager")
-    suspend fun created(dto: ItemDTO): Item = itemRepository.save(dto.toCreatedStateEntity())
+    suspend fun created(dto: ItemDTO): Item = itemRepository.save(dto.toNew())
 
     @Transactional(value = "transactionManager", readOnly = true)
     suspend fun getAll(): Flow<Item> = itemRepository.findAll()
