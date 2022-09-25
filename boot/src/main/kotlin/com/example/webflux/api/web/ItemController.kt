@@ -1,12 +1,10 @@
 package com.example.webflux.api.web
 
-
 import com.example.webflux.api.service.ItemService
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.api.service.data.ItemInfo
 import com.example.webflux.domain.Item
 import kotlinx.coroutines.flow.Flow
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -28,12 +26,10 @@ constructor(
     suspend fun getAll(): Flow<Item> = itemService.getAll()
 
     @GetMapping("/{id}")
-    suspend fun get(@PathVariable id: Long): ResponseEntity<Item> = itemService.get(id).let {
-        if (it == null) ResponseEntity.noContent().build() else ResponseEntity.ok().body(it)
-    }
+    // todo: #DEV-001 ResponseEntity<ItemInfo> not working -> checked to webflux why not working...?
+    suspend fun get(@PathVariable id: Long): Item? = itemService.get(id)
 
     @GetMapping("/name")
-    suspend fun get(name: String): ResponseEntity<ItemInfo> = itemService.get(name).let {
-        if (it == null) ResponseEntity.noContent().build() else ResponseEntity.ok().body(it)
-    }
+    // todo: #DEV-001 ResponseEntity<ItemInfo> not working -> checked to webflux why not working...?
+    suspend fun get(name: String): ItemInfo? = itemService.get(name)
 }
