@@ -2,7 +2,7 @@ package com.example.webflux.api.service.data
 
 import com.example.webflux.domain.Item
 import com.example.webflux.util.MockUtil
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class ItemDTOTest {
@@ -21,8 +21,8 @@ internal class ItemDTOTest {
 
         val entity = dto.toNew()
 
-        Assertions.assertEquals(mock.name, entity.name)
-        Assertions.assertEquals(mock.type, entity.type)
-        Assertions.assertEquals(mock.count, entity.count)
+        assertEquals(mock.name, entity.name)
+        assertEquals(mock.type, entity.type)
+        assertEquals(mock.count, entity.count)
     }
 }

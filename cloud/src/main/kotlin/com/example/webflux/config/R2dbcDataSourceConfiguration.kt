@@ -32,21 +32,6 @@ class R2dbcDataSourceConfiguration constructor(
     private val writeDataSourceProperties: BaseDataSourceProperties,
 ) : AbstractR2dbcConfiguration() {
 
-    // /**
-    //  * configuration converters class
-    //  */
-    // override fun getCustomConverters(): MutableList<Any> = mutableListOf(
-    //     ItemTypeConverter()
-    // )
-    // override fun r2dbcConverter(
-    //     mappingContext: R2dbcMappingContext,
-    //     r2dbcCustomConversions: R2dbcCustomConversions
-    // ): MappingR2dbcConverter {
-    //
-    //     R2dbcCustomConversions.of(MySqlDialect.INSTANCE, converters)
-    //     return super.r2dbcConverter(mappingContext, r2dbcCustomConversions)
-    // }
-
     @Bean(name = ["connectionFactory"])
     override fun connectionFactory(): ConnectionFactory = MultiRoutingConnectionFactory().apply {
 
@@ -63,23 +48,23 @@ class R2dbcDataSourceConfiguration constructor(
     @Bean(name = ["writeConnectionFactory"])
     fun writeConnectionFactory() = getConnectionFactory(properties = writeDataSourceProperties)
 
-    @Bean(name = ["writeTransactionManager"])
-    fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
-        R2dbcTransactionManager(connectionFactory)
-
     @Bean(name = ["readConnectionFactory"])
     fun readConnectionFactory() = getConnectionFactory(properties = readDataSourceProperties)
 
-    @Bean(name = ["readTransactionManager"])
-    fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
-        R2dbcTransactionManager(connectionFactory)
+    // todo : querydsl lib add not working ... next fixed
+    // @Bean(name = ["writeTransactionManager"])
+    // fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
+    //     R2dbcTransactionManager(connectionFactory)
+    //
+    // @Bean(name = ["readTransactionManager"])
+    // fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
+    //     R2dbcTransactionManager(connectionFactory)
 
     /**
      * get Connection factory
      */
-    private fun getConnectionFactory(properties: BaseDataSourceProperties): ConnectionFactory {
-
-        val options: ConnectionFactoryOptions = ConnectionFactoryOptions.builder()
+    private fun getConnectionFactory(properties: BaseDataSourceProperties): ConnectionFactory =
+        ConnectionFactoryOptions.builder()
             .option(DRIVER, properties.driver())
             .option(HOST, properties.host())
             .option(PORT, properties.port())
@@ -88,15 +73,31 @@ class R2dbcDataSourceConfiguration constructor(
             .option(DATABASE, properties.database()) // optional, default null, null means not specifying the database
             .option(CONNECT_TIMEOUT, Duration.ofSeconds(3)) // optional, default null, null means no timeout
             .build()
-
-        return ConnectionFactories.get(options)
-    }
+            .run {
+                ConnectionFactories.get(this)
+            }
 
     @Bean
     fun transactionManager(
         @Qualifier("connectionFactory")
         connectionFactory: ConnectionFactory,
     ): TransactionManager = R2dbcTransactionManager(connectionFactory)
+
+
+    // /**
+    //  * configuration converters class
+    //  */
+    // override fun getCustomConverters(): MutableList<Any> = mutableListOf(
+    //     ItemTypeConverter()
+    // )
+    // override fun r2dbcConverter(
+    //     mappingContext: R2dbcMappingContext,
+    //     r2dbcCustomConversions: R2dbcCustomConversions
+    // ): MappingR2dbcConverter {
+    //
+    //     R2dbcCustomConversions.of(MySqlDialect.INSTANCE, converters)
+    //     return super.r2dbcConverter(mappingContext, r2dbcCustomConversions)
+    // }
 }
 
 
