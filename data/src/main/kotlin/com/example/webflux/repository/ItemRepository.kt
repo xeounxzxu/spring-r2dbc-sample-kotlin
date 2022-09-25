@@ -5,7 +5,7 @@ import org.springframework.data.repository.kotlin.CoroutineSortingRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ItemRepository : CoroutineSortingRepository<Item, Long> {
+interface ItemRepository : CoroutineSortingRepository<Item, Long>{
 
     suspend fun findByName(name: String): Item?
 

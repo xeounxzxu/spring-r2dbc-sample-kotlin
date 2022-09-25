@@ -19,7 +19,7 @@ class ItemService constructor(
     suspend fun created(dto: ItemDTO): Item = itemRepository.save(dto.toNew())
 
     @Transactional(value = "transactionManager", readOnly = true)
-    suspend fun getAll(): Flow<Item> = itemRepository.findAll()
+    suspend fun getAll(): Flow<Item> = itemQuerydslRepository.findAllToClass(Item::class.java)
 
     @Transactional(value = "transactionManager", readOnly = true)
     suspend fun get(id: Long): Item? = itemRepository.findById(id)
