@@ -25,7 +25,9 @@ import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator
     )]
 )
 @EnableR2dbcRepositories(
-    basePackages = ["com.example.webflux.repository"]
+    basePackages = [
+        "com.example.webflux.repository",
+    ]
 )
 class ItemRepositoryTestConfiguration constructor(
     // private val defaultR2dbcCustomConversions: R2dbcCustomConversions
