@@ -4,7 +4,7 @@ import com.example.webflux.api.service.ItemService
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.api.service.data.ItemInfo
 import com.example.webflux.domain.Item
-import com.example.webflux.dto.ItemInfoDTO
+import com.example.webflux.projection.ItemInfoDTO
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

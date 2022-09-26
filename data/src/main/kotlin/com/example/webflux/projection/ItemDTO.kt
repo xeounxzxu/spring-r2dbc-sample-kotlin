@@ -1,4 +1,4 @@
-package com.example.webflux.dto
+package com.example.webflux.projection
 
 import com.example.webflux.constants.ItemType
 

@@ -3,7 +3,7 @@ package com.example.webflux.api.service
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.api.service.data.ItemInfo
 import com.example.webflux.domain.Item
-import com.example.webflux.dto.ItemInfoDTO
+import com.example.webflux.projection.ItemInfoDTO
 import com.example.webflux.querydsl.ItemQuerydslRepository
 import com.example.webflux.repository.ItemRepository
 import org.springframework.stereotype.Service
