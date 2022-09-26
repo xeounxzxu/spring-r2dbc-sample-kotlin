@@ -22,7 +22,7 @@ import java.time.Duration
 @Configuration
 @EnableR2dbcRepositories(
     basePackages = [
-        "com.example.webflux.repository",
+        "com.example.webflux.repository"
     ]
 )
 class R2dbcDataSourceConfiguration constructor(

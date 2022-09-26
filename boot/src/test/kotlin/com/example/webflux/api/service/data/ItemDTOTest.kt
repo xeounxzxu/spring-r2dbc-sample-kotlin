@@ -15,8 +15,8 @@ internal class ItemDTOTest {
 
         val dto = ItemDTO(
             name = mock.name.toString(),
-            count = mock.count,
-            limitCount = mock.limitCount
+            count = mock.count!!,
+            limitCount = mock.limitCount!!
         )
 
         val entity = dto.toNew()
