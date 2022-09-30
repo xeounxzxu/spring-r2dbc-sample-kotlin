@@ -15,6 +15,7 @@ springBoot {
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
 }
 
 allprojects {
@@ -72,6 +73,10 @@ subprojects {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
         testImplementation("io.projectreactor:reactor-test")
         testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
+
+        // my lib add
+        // todo : not working ... fixed it
+        implementation("com.github.newbalancer:mock-expansion-util:0.0.2-SNAPSHOT")
     }
 }
 

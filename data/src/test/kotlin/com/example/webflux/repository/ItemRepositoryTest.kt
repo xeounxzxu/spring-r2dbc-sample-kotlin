@@ -3,6 +3,7 @@ package com.example.webflux.repository
 import com.example.webflux.config.ItemRepositoryTestConfiguration
 import com.example.webflux.domain.Item
 import com.example.webflux.util.MockUtil
+import com.example.webflux.util.MockUtil.Companion.readJsonFileToClass
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -25,7 +26,7 @@ private class ItemRepositoryTest {
     fun `아이템 저장`() = runTest {
 
         val mock =
-            MockUtil.readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
+            readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
 
         val entity = itemRepository.save(mock)
 
