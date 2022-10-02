@@ -5,6 +5,7 @@ import io.r2dbc.h2.H2ConnectionFactory
 import io.r2dbc.h2.H2ConnectionOption
 import io.r2dbc.spi.ConnectionFactory
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -58,6 +59,7 @@ class QuerydslTestConfiguration : AbstractR2dbcConfiguration() {
         }
 }
 
+@Disabled
 @ExtendWith(value = [SpringExtension::class])
 @ContextConfiguration(
     classes = [
