@@ -2,7 +2,6 @@ package com.example.webflux.repository
 
 import com.example.webflux.config.ItemRepositoryTestConfiguration
 import com.example.webflux.domain.Item
-import com.example.webflux.util.MockUtil
 import com.example.webflux.util.MockUtil.Companion.readJsonFileToClass
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -40,8 +39,7 @@ private class ItemRepositoryTest {
     @Test
     fun `이름별 조회 테스트 케이스`() = runTest {
 
-        val mock =
-            MockUtil.readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
+        val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
 
         val entity = itemRepository.findByName(mock.name!!)!!
 
