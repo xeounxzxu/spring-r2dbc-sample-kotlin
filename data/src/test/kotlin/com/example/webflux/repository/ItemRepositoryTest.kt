@@ -1,6 +1,6 @@
 package com.example.webflux.repository
 
-import com.example.webflux.config.ItemRepositoryTestConfiguration
+import com.example.webflux.config.R2dbcTestConfiguration
 import com.example.webflux.domain.Item
 import com.example.webflux.util.MockUtil.Companion.readJsonFileToClass
 import kotlinx.coroutines.test.runTest
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(value = [SpringExtension::class])
 @ContextConfiguration(
-    classes = [ItemRepositoryTestConfiguration::class]
+    classes = [R2dbcTestConfiguration::class]
 )
 private class ItemRepositoryTest {
 
