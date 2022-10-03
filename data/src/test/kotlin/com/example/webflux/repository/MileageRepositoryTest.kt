@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.annotation.Order
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
@@ -24,12 +25,29 @@ internal class MileageRepositoryTest {
     private lateinit var milRepository: MileageRepository
 
     @Test
+    @Order(1)
     fun `나의 마일리지 저장 테스트 케이스`() = runTest {
 
         val mock: Mileage = MockUtil.readJsonFileToClass("json/mileage/save_.json", Mileage::class.java)!!
 
         val entity: Mileage = milRepository.save(mock)
 
+        assertNotNull(entity.id)
+        assertEquals(mock.userId, entity.userId)
+        assertEquals(mock.point, entity.point)
+        assertNotNull(entity.createdAt)
+        assertNotNull(entity.updatedAt)
+    }
+
+    @Test
+    @Order(2)
+    fun `유저 아이디 별로 조회`() = runTest {
+
+        val mockUserId = 1L
+
+        val mock: Mileage = MockUtil.readJsonFileToClass("json/mileage/save_.json", Mileage::class.java)!!
+
+        val entity: Mileage = milRepository.findByUserId(mockUserId)!!
 
         assertNotNull(entity.id)
         assertEquals(mock.userId, entity.userId)
