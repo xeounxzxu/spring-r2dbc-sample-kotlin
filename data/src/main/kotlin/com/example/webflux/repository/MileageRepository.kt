@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface MileageRepository : CoroutineSortingRepository<Mileage, Long> {
+
+    suspend fun findByUserId(userId : Long) : Mileage?
 }
