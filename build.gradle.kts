@@ -15,6 +15,7 @@ springBoot {
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
 }
 
 allprojects {
@@ -65,13 +66,17 @@ subprojects {
         implementation("org.springframework.data:spring-data-r2dbc")
 
         // add querydsl lib
-        implementation("com.infobip:infobip-spring-data-r2dbc-querydsl-boot-starter:6.2.0")
-        kapt("com.infobip:infobip-spring-data-jdbc-annotation-processor-common:6.2.0")
+        implementation("com.infobip:infobip-spring-data-r2dbc-querydsl-boot-starter:7.2.0")
+        kapt("com.infobip:infobip-spring-data-jdbc-annotation-processor-common:7.2.0")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
         testImplementation("io.projectreactor:reactor-test")
         testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
+
+        // my lib add
+        // todo : not working ... fixed it
+        // implementation("com.github.newbalancer:mock-expansion-util:0.0.2-SNAPSHOT")
     }
 }
 

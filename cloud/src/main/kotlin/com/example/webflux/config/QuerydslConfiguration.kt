@@ -12,5 +12,4 @@ class QuerydslConfiguration {
     fun sqlTemplates(): SQLTemplates {
         return MySQLTemplates()
     }
-
 }

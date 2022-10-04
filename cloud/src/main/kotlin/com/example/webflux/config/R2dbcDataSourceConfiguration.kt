@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.r2dbc.connection.R2dbcTransactionManager
-import org.springframework.transaction.TransactionManager
+import org.springframework.transaction.ReactiveTransactionManager
 import java.time.Duration
 
+@EnableR2dbcAuditing
 @Configuration
 @EnableR2dbcRepositories(
     basePackages = [
@@ -51,15 +53,6 @@ class R2dbcDataSourceConfiguration constructor(
     @Bean(name = ["readConnectionFactory"])
     fun readConnectionFactory() = getConnectionFactory(properties = readDataSourceProperties)
 
-    // todo : querydsl lib add not working ... next fixed
-    // @Bean(name = ["writeTransactionManager"])
-    // fun writeTransactionManager(@Qualifier("writeConnectionFactory") connectionFactory: ConnectionFactory) =
-    //     R2dbcTransactionManager(connectionFactory)
-    //
-    // @Bean(name = ["readTransactionManager"])
-    // fun readTransactionManager(@Qualifier("readConnectionFactory") connectionFactory: ConnectionFactory) =
-    //     R2dbcTransactionManager(connectionFactory)
-
     /**
      * get Connection factory
      */
@@ -78,26 +71,10 @@ class R2dbcDataSourceConfiguration constructor(
             }
 
     @Bean
-    fun transactionManager(
+    fun reactiveTransactionManager(
         @Qualifier("connectionFactory")
         connectionFactory: ConnectionFactory,
-    ): TransactionManager = R2dbcTransactionManager(connectionFactory)
-
-
-    // /**
-    //  * configuration converters class
-    //  */
-    // override fun getCustomConverters(): MutableList<Any> = mutableListOf(
-    //     ItemTypeConverter()
-    // )
-    // override fun r2dbcConverter(
-    //     mappingContext: R2dbcMappingContext,
-    //     r2dbcCustomConversions: R2dbcCustomConversions
-    // ): MappingR2dbcConverter {
-    //
-    //     R2dbcCustomConversions.of(MySqlDialect.INSTANCE, converters)
-    //     return super.r2dbcConverter(mappingContext, r2dbcCustomConversions)
-    // }
+    ): ReactiveTransactionManager = R2dbcTransactionManager(connectionFactory)
 }
 
 
