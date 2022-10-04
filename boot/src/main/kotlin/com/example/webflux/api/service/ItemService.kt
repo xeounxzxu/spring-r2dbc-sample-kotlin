@@ -1,9 +1,9 @@
 package com.example.webflux.api.service
 
 import com.example.webflux.api.service.data.ItemDTO
-import com.example.webflux.api.service.data.ItemInfo
 import com.example.webflux.domain.Item
-import com.example.webflux.projection.ItemInfoDTO
+import com.example.webflux.projection.ItemInfo
+import com.example.webflux.projection.OnlyItemName
 import com.example.webflux.querydsl.ItemQuerydslRepository
 import com.example.webflux.repository.ItemRepository
 import org.springframework.stereotype.Service
@@ -21,11 +21,11 @@ class ItemService constructor(
 
     // todo : flux changed to flow
     @Transactional(value = "reactiveTransactionManager", readOnly = true)
-    fun getAll(): Flux<ItemInfoDTO> = itemQuerydslRepository.getAllBy(ItemInfoDTO::class.java)
+    fun getAll(): Flux<ItemInfo> = itemQuerydslRepository.getAllBy(ItemInfo::class.java)
 
     @Transactional(value = "reactiveTransactionManager", readOnly = true)
     suspend fun get(id: Long): Item? = itemRepository.findById(id)
 
     @Transactional(value = "reactiveTransactionManager", readOnly = true)
-    suspend fun get(name: String): ItemInfo? = itemRepository.findByName(name, ItemInfo::class.java)
+    suspend fun get(name: String): OnlyItemName? = itemRepository.findByName(name, OnlyItemName::class.java)
 }
