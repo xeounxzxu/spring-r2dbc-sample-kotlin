@@ -59,6 +59,7 @@ class R2dbcTestConfiguration : AbstractR2dbcConfiguration() {
                 this.addPopulators(ResourceDatabasePopulator(ClassPathResource("sql/item/schema.sql")))
                 this.addPopulators(ResourceDatabasePopulator(ClassPathResource("sql/item/item-data1.sql")))
                 this.addPopulators(ResourceDatabasePopulator(ClassPathResource("sql/mileage/schema.sql")))
+                this.addPopulators(ResourceDatabasePopulator(ClassPathResource("sql/product/schema.sql")))
             }
 
             this.setDatabasePopulator(populator)
