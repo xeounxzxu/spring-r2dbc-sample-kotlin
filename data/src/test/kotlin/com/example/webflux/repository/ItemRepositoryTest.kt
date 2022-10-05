@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @ContextConfiguration(
     classes = [R2dbcTestConfiguration::class]
 )
-private class ItemRepositoryTest {
+internal class ItemRepositoryTest {
 
     @Autowired
     private lateinit var itemRepository: ItemRepository
