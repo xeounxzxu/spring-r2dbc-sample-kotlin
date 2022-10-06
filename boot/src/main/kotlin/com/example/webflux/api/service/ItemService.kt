@@ -26,6 +26,7 @@ class ItemService constructor(
     @Transactional(value = "reactiveTransactionManager", readOnly = true)
     suspend fun get(id: Long): Item? = itemRepository.findById(id)
 
+    // todo : checked : why dynamic projections not working...?
     @Transactional(value = "reactiveTransactionManager", readOnly = true)
-    suspend fun get(name: String): OnlyItemName? = itemRepository.findByName(name, OnlyItemName::class.java)
+    suspend fun get(name: String): OnlyItemName? = itemRepository.findItemByName(name)
 }
