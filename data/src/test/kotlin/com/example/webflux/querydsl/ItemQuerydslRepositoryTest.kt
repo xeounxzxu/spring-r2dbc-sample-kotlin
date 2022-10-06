@@ -1,6 +1,6 @@
 package com.example.webflux.querydsl
 
-import com.example.webflux.projection.ItemInfoDTO
+import com.example.webflux.projection.OnlyItemName
 import io.r2dbc.h2.H2ConnectionFactory
 import io.r2dbc.h2.H2ConnectionOption
 import io.r2dbc.spi.ConnectionFactory
@@ -74,7 +74,7 @@ class ItemQuerydslRepositoryTest {
     @Test
     fun `전체 조회 Projections 테스트 케이스`() {
 
-        val entities = itemQuerydslRepository.getAllBy(ItemInfoDTO::class.java)
+        val entities = itemQuerydslRepository.getAllBy(OnlyItemName::class.java)
 
         assertNotNull(entities)
     }

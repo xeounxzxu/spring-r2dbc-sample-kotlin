@@ -18,6 +18,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
+
 allprojects {
     val javaVersion = "11"
 
