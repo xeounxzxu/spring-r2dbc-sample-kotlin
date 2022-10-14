@@ -5,7 +5,6 @@ import io.r2dbc.h2.H2ConnectionFactory
 import io.r2dbc.h2.H2ConnectionOption
 import io.r2dbc.spi.ConnectionFactory
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,6 +14,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.core.io.ClassPathResource
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.r2dbc.connection.R2dbcTransactionManager
 import org.springframework.r2dbc.connection.init.CompositeDatabasePopulator
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer
@@ -23,7 +23,7 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @TestConfiguration
-@ComponentScan(
+@EnableR2dbcRepositories(
     basePackages = [
         "com.example.webflux.querydsl"
     ]
@@ -59,8 +59,10 @@ class QuerydslTestConfiguration : AbstractR2dbcConfiguration() {
         }
 }
 
-@Disabled
-@ExtendWith(value = [SpringExtension::class])
+// @Disabled
+// @ExtendWith(value = [SpringExtension::class])
+
+@ExtendWith(SpringExtension::class)
 @ContextConfiguration(
     classes = [
         QuerydslTestConfiguration::class

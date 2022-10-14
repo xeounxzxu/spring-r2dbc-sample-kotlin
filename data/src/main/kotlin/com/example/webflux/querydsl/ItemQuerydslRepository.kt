@@ -13,7 +13,6 @@ interface ItemQuerydslRepository : QuerydslR2dbcRepository<Item, Long> {
     fun <T> getAllBy(type: Class<T>): Flux<T> = this.query {
         it.select(
             Projections.fields(
-                // Class<T> Type Add
                 type,
                 item.id,
                 item.name,
@@ -23,6 +22,5 @@ interface ItemQuerydslRepository : QuerydslR2dbcRepository<Item, Long> {
                 item.createdAt
             )
         ).from(item)
-    }
-        .all()
+    }.all()
 }
