@@ -1,16 +1,23 @@
-import org.jetbrains.kotlin.daemon.common.isDaemonEnabled
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    java
     id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    kotlin("kapt") version "1.7.10"
+}
+
+springBoot {
+    mainClass.value("com.example.webflux.BootApplication")
 }
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
 }
+
 
 allprojects {
     val javaVersion = "11"
@@ -40,6 +47,7 @@ subprojects {
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "kotlin-kapt")
 
+
     repositories {
         mavenCentral()
     }
@@ -58,12 +66,19 @@ subprojects {
         implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
         implementation("org.springframework.data:spring-data-r2dbc")
 
+        // add querydsl lib
+        implementation("com.infobip:infobip-spring-data-r2dbc-querydsl-boot-starter:7.2.0")
+        kapt("com.infobip:infobip-spring-data-jdbc-annotation-processor-common:7.2.0")
+
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
         testImplementation("io.projectreactor:reactor-test")
         testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
-    }
 
+        // my lib add
+        // todo : not working ... fixed it
+        // implementation("com.github.newbalancer:mock-expansion-util:0.0.2-SNAPSHOT")
+    }
 }
 
 project("cloud") {

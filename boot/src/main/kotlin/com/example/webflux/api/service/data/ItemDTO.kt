@@ -1,19 +1,6 @@
 package com.example.webflux.api.service.data
 
 import com.example.webflux.domain.Item
-import org.springframework.beans.factory.annotation.Value
-
-/**
- * Data Projection use to interface ...
- */
-interface ItemInfo {
-
-    /**
-     * use to name ..
-     */
-    @Value("#{target.name}")
-    fun getName(): String
-}
 
 /**
  * Item Save Entity DTO

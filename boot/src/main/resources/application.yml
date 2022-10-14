@@ -6,7 +6,7 @@ logging:
   level:
     io.r2dbc.mysql.QUERY: DEBUG
     io.r2dbc.mysql.PARAM: DEBUG
-
+#    dev.miku.r2dbc.mysql.client.ReactorNettyClient: TRACE
     org:
       # R2dbc
       springframework.r2dbc: TRACE
@@ -17,7 +17,7 @@ read:
   datasource:
     driver: mysql
     host: localhost
-    port: 3306
+    port: 23306
     database: WEBFLUX
     username: root
     password: 1234
@@ -25,7 +25,7 @@ write:
   datasource:
     driver: mysql
     host: localhost
-    port: 3306
+    port: 23306
     database: WEBFLUX
     username: root
     password: 1234
