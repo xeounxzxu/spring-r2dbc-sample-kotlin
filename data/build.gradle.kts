@@ -14,4 +14,5 @@ tasks.bootJar {
 
 
 dependencies {
+    implementation(project(":share"))
 }
