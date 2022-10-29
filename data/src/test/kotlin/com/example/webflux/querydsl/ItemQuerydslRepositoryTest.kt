@@ -9,9 +9,8 @@ import com.example.webflux.util.MockUtil.Companion.readJsonFileToClass
 import com.example.webflux.util.OnlyItemNameImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.springframework.test.context.ContextConfiguration
@@ -39,19 +38,27 @@ class ItemQuerydslRepositoryTest constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     fun `Dynamic projections test case`() = runTest {
 
-        val mock = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)
+        val mock = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)!!
 
         val entities: Flux<ItemInfo> = itemQuerydslRepository.getAllBy(ItemInfo::class.java)
 
         assertNotNull(entities)
 
-        StepVerifier.create<Any>(entities)
-            .expectNext(mock)
-            .verifyComplete()
+        StepVerifier.create(entities)
+            .expectSubscription()
+            .thenConsumeWhile {
+                it.id == mock.id &&
+                    it.name == mock.name &&
+                    it.type == mock.type &&
+                    it.count == mock.count &&
+                    it.limitCount == mock.limitCount &&
+                    it.createdAt == mock.createdAt
+            }
+            .expectComplete()
+            .verify()
     }
 
     @Test
-    @Disabled
     @Order(3)
     fun `find by name only query`() {
 
@@ -63,8 +70,35 @@ class ItemQuerydslRepositoryTest constructor(
         assertNotNull(entities)
 
         StepVerifier.create(entities)
-            // .expectNext(mock)
-            .expectNext(mock)
-            .verifyComplete()
+            .expectSubscription()
+            .thenConsumeWhile {
+                it.getName() == mock.getName()
+            }
+            .expectComplete()
+            .verify()
+    }
+
+    @Test
+    @Order(4)
+    fun `findAll item and history`() {
+
+        val mock = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)!!
+
+        val entities: Flux<ItemInfo> = itemQuerydslRepository.getAllItemAndItemHistoryBy(ItemInfo::class.java)
+
+        assertNotNull(entities)
+
+        StepVerifier.create(entities)
+            .expectSubscription()
+            .thenConsumeWhile {
+                it.id == mock.id &&
+                    it.name == mock.name &&
+                    it.type == mock.type &&
+                    it.count == mock.count &&
+                    it.limitCount == mock.limitCount &&
+                    it.createdAt == mock.createdAt
+            }
+            .expectComplete()
+            .verify()
     }
 }
