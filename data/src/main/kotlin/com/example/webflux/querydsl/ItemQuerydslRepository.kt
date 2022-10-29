@@ -12,13 +12,10 @@ interface ItemQuerydslRepository : QuerydslR2dbcRepository<Item, Long> {
         it.select(
             Projections.fields(
                 type,
-                item.id,
-                item.name,
-                item.type,
-                item.count,
-                item.limitCount,
-                item.createdAt
+                item
             )
-        ).from(item)
+        )
+            .from(item)
+            .orderBy(item.id.asc())
     }.all()
 }
