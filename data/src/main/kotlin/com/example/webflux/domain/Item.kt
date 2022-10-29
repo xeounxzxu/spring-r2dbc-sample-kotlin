@@ -14,12 +14,11 @@ data class Item constructor(
     val id: Long?,
     val name: String?,
     val type: ItemType?,
-    // default is 0
-    val count: Int?,
+    var count: Int = 0,
     // this column is person limit sold count
     // it is not init data and changed nullable data
     @Column("limit_count")
-    val limitCount: Int?,
+    var limitCount: Int = 0,
     @Column("created_at")
     val createdAt: Long?,
 ) {
@@ -28,14 +27,12 @@ data class Item constructor(
     constructor(
         name: String,
         type: ItemType = ItemType.WAIT,
-        count: Int = 0,
         limitCount: Int = 0,
         createdAt: Long? = System.currentTimeMillis(),
     ) : this(
         id = null,
         name = name,
         type = type,
-        count = count,
         limitCount = limitCount,
         createdAt = createdAt
     )
