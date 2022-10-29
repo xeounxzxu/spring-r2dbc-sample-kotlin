@@ -2,7 +2,6 @@ package com.example.webflux.querydsl
 
 import com.example.webflux.domain.Item
 import com.example.webflux.domain.QItem.item
-import com.example.webflux.domain.QItemHistory
 import com.example.webflux.domain.QItemHistory.itemHistory
 import com.infobip.spring.data.r2dbc.QuerydslR2dbcRepository
 import com.querydsl.core.types.Projections
