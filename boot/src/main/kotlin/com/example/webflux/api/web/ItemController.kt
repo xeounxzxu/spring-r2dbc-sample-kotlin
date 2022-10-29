@@ -33,4 +33,7 @@ constructor(
     @GetMapping("/name")
     // todo: #DEV-001 ResponseEntity<ItemInfo> not working -> checked to webflux why not working...?
     suspend fun get(name: String): OnlyItemName? = itemService.get(name)
+
+    @GetMapping("/history")
+    fun getAllItemAndHistory() = itemService.getAllItemAndItemHistory()
 }

@@ -29,4 +29,8 @@ class ItemService constructor(
     // todo : checked : why dynamic projections not working...?
     @Transactional(value = "reactiveTransactionManager", readOnly = true)
     suspend fun get(name: String): OnlyItemName? = itemRepository.findItemByName(name)
+
+    @Transactional(readOnly = true)
+    fun getAllItemAndItemHistory(): Flux<ItemInfo> =
+        itemQuerydslRepository.getAllItemAndItemHistoryBy(ItemInfo::class.java)
 }

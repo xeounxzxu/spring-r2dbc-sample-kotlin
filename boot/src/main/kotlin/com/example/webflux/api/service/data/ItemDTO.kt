@@ -14,7 +14,6 @@ data class ItemDTO constructor(
     // new item data
     fun toNew() = Item(
         name = name,
-        count = count,
         limitCount = limitCount
     )
 }
