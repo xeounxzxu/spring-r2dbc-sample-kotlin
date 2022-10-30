@@ -2,7 +2,7 @@ package com.example.webflux.repository
 
 import com.example.webflux.config.R2dbcTestConfiguration
 import com.example.webflux.domain.Item
-import com.example.webflux.util.MockUtil.Companion.readJsonFileToClass
+import com.example.webflux.util.MockUtil.readJsonFileToClass
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull

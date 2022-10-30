@@ -1,38 +1,104 @@
 package com.example.webflux.querydsl
 
+import com.example.webflux.config.AbstractQuerydslBaseTest
+import com.example.webflux.config.QuerydslTestConfiguration
 import com.example.webflux.domain.Item
-import org.assertj.core.api.BDDAssertions.then
+import com.example.webflux.projection.ItemInfo
+import com.example.webflux.projection.OnlyItemName
+import com.example.webflux.util.MockUtil.Companion.readJsonFileToClass
+import com.example.webflux.util.OnlyItemNameImpl
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
+import org.springframework.test.context.ContextConfiguration
 import reactor.core.publisher.Flux
 import reactor.test.StepVerifier
-import java.util.function.Predicate
 
-class ItemQuerydslRepositoryTest(private val repository: ItemQuerydslRepository) : TestBase() {
+@ContextConfiguration(
+    classes = [
+        QuerydslTestConfiguration::class
+    ]
+)
+class ItemQuerydslRepositoryTest constructor(
+    private val itemQuerydslRepository: ItemQuerydslRepository
+) : AbstractQuerydslBaseTest() {
 
     @Test
-    fun `전체 조회 Projections 테스트 케이스`() {
-
-        val item1 = Item("test1")
-        val item2 = Item("test2")
-        val item3 = Item("test3")
-
-        val given: Flux<Item> = repository.saveAll(
-            listOf(item1, item2, item3)
-        )
-
-        val actual: Flux<Item> = given.thenMany(repository.findAll())
-
-        StepVerifier.create(actual)
-            .expectNextMatches(itemEntity(item1.name!!))
-            .expectNextMatches(itemEntity(item2.name!!))
-            .expectNextMatches(itemEntity(item3.name!!))
-            .verifyComplete()
+    @Order(1)
+    fun `find All not null checked`() {
+        val entities: Flux<Item> = itemQuerydslRepository.findAll()
+        assertNotNull(entities)
     }
 
-    private fun itemEntity(fooBarValue: String): Predicate<Item> {
-        return Predicate<Item> { entity: Item ->
-            then(entity).isEqualTo(Item(entity.name!!))
-            true
-        }
+    @Test
+    @Order(2)
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun `Dynamic projections test case`() = runTest {
+
+        val mock = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)!!
+
+        val entities: Flux<ItemInfo> = itemQuerydslRepository.getAllBy(ItemInfo::class.java)
+
+        assertNotNull(entities)
+
+        StepVerifier.create(entities)
+            .expectSubscription()
+            .thenConsumeWhile {
+                it.id == mock.id &&
+                    it.name == mock.name &&
+                    it.type == mock.type &&
+                    it.count == mock.count &&
+                    it.limitCount == mock.limitCount &&
+                    it.createdAt == mock.createdAt
+            }
+            .expectComplete()
+            .verify()
+    }
+
+    @Test
+    @Order(3)
+    fun `find by name only query`() {
+
+        val mock: OnlyItemName =
+            readJsonFileToClass("json/item/item-querydsl-getAllBy.json", OnlyItemNameImpl::class.java)!!
+
+        val entities: Flux<OnlyItemName> = itemQuerydslRepository.getAllBy(OnlyItemName::class.java)
+
+        assertNotNull(entities)
+
+        StepVerifier.create(entities)
+            .expectSubscription()
+            .thenConsumeWhile {
+                it.getName() == mock.getName()
+            }
+            .expectComplete()
+            .verify()
+    }
+
+    @Test
+    @Order(4)
+    fun `findAll item and history`() {
+
+        val mock = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)!!
+
+        val entities: Flux<ItemInfo> = itemQuerydslRepository.getAllItemAndItemHistoryBy(ItemInfo::class.java)
+
+        assertNotNull(entities)
+
+        StepVerifier.create(entities)
+            .expectSubscription()
+            .thenConsumeWhile {
+                it.id == mock.id &&
+                    it.name == mock.name &&
+                    it.type == mock.type &&
+                    it.count == mock.count &&
+                    it.limitCount == mock.limitCount &&
+                    it.createdAt == mock.createdAt
+            }
+            .expectComplete()
+            .verify()
     }
 }

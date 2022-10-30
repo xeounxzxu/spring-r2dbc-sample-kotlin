@@ -74,31 +74,5 @@ subprojects {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
         testImplementation("io.projectreactor:reactor-test")
         testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
-
-        // my lib add
-        // todo : not working ... fixed it
-        // implementation("com.github.newbalancer:mock-expansion-util:0.0.2-SNAPSHOT")
-    }
-}
-
-project("cloud") {
-
-    dependencies {
-        implementation(project(":share"))
-    }
-}
-
-project("data") {
-
-    dependencies {
-        implementation(project(":share"))
-    }
-}
-project("boot") {
-
-    dependencies {
-        implementation(project(":share"))
-        implementation(project(":cloud"))
-        implementation(project(":data"))
     }
 }

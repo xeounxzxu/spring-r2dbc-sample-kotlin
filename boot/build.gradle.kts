@@ -13,4 +13,7 @@ tasks.bootJar {
 }
 
 dependencies {
+    implementation(project(":share"))
+    implementation(project(":cloud"))
+    implementation(project(":data"))
 }

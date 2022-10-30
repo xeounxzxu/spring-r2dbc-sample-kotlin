@@ -1,10 +1,14 @@
-package com.example.webflux.querydsl
+package com.example.webflux.config
 
 import com.example.webflux.Main
+import com.querydsl.sql.MySQLTemplates
+import com.querydsl.sql.SQLTemplates
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.context.annotation.Bean
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.test.context.TestConstructor
 import reactor.core.publisher.Flux
@@ -13,10 +17,22 @@ import java.time.Duration
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
+@TestConfiguration
+class QuerydslTestConfiguration : AbstractR2dbRepositoryConfiguration() {
+
+    @Bean
+    fun sqlTemplates(): SQLTemplates {
+        return MySQLTemplates()
+    }
+}
+
+/**
+ * Querydsl Base Testing...
+ */
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(classes = [Main::class])
-abstract class TestBase {
+abstract class AbstractQuerydslBaseTest {
 
     @Autowired
     private val repositories: List<ReactiveCrudRepository<*, *>>? = null
