@@ -70,9 +70,17 @@ subprojects {
         implementation("com.infobip:infobip-spring-data-r2dbc-querydsl-boot-starter:7.2.0")
         kapt("com.infobip:infobip-spring-data-jdbc-annotation-processor-common:7.2.0")
 
-        testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
         testImplementation("io.projectreactor:reactor-test")
         testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
+
+        testImplementation("org.mockito:mockito-core:4.6.1")
+        testImplementation("org.springframework.boot:spring-boot-starter-test") {
+            exclude(module = "junit")
+            exclude(module = "mockito-core")
+        }
+        testImplementation("org.junit.jupiter:junit-jupiter-api")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+        testImplementation("com.ninja-squad:springmockk:3.0.1")
     }
 }
