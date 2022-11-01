@@ -49,4 +49,18 @@ internal class ItemRepositoryTest {
         assertEquals(mock.count, entity.count)
         assertEquals(mock.createdAt, entity.createdAt)
     }
+
+    @Test
+    fun `find_id test case`() = runTest {
+
+        val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
+
+        val entity = itemRepository.findById(mock.id!!)!!
+
+        assertEquals(mock.id!!, entity.id)
+        assertEquals(mock.name, entity.name)
+        assertEquals(mock.type, entity.type)
+        assertEquals(mock.count, entity.count)
+        assertEquals(mock.createdAt, entity.createdAt)
+    }
 }
