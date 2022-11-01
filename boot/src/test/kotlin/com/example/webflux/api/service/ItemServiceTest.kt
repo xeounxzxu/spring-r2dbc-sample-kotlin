@@ -94,4 +94,28 @@ internal class ItemServiceTest : AbstractMockKService() {
             .expectComplete()
             .verify()
     }
+
+    @Test
+    fun `select id method`() = runTest {
+
+        val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
+
+        coEvery {
+            itemRepository.findById(any() as Long)
+        } returns mock
+
+        val entity = itemService.get(1L)!!
+
+        coVerify {
+            itemRepository.findById(any() as Long)
+        }
+
+        confirmVerified(itemRepository)
+
+        assertEquals(mock.id, entity.id)
+        assertEquals(mock.name, entity.name)
+        assertEquals(mock.type, entity.type)
+        assertEquals(mock.count, entity.count)
+        assertEquals(mock.createdAt, entity.createdAt)
+    }
 }
