@@ -2,38 +2,41 @@ package com.example.webflux.api.service
 
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.domain.Item
+import com.example.webflux.projection.ItemInfo
 import com.example.webflux.querydsl.ItemQuerydslRepository
 import com.example.webflux.repository.ItemRepository
-import com.example.webflux.util.MockUtil
-import kotlinx.coroutines.launch
+import com.example.webflux.util.MockUtil.readJsonFileToClass
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.BDDMockito.given
-import org.mockito.BDDMockito.then
-import org.mockito.InjectMocks
-import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
+import reactor.core.publisher.Flux
+import reactor.test.StepVerifier
 
 @ExtendWith(MockitoExtension::class)
-internal class ItemServiceTest {
+internal class ItemServiceTest : AbstractMockKService() {
 
-    @InjectMocks
+    @InjectMockKs
     private lateinit var itemService: ItemService
 
-    @Mock
+    @MockK
     private lateinit var itemRepository: ItemRepository
 
-    @Mock
+    @MockK
     private lateinit var iteQuerydslR2dbcRepository: ItemQuerydslRepository
 
     @Test
     fun `created item logic test case`() = runTest {
 
-        val mock =
-            MockUtil.readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
+        val mock = readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
 
         val dto = ItemDTO(
             name = mock.name!!,
@@ -41,18 +44,78 @@ internal class ItemServiceTest {
             limitCount = mock.limitCount
         )
 
-        given(itemRepository.save(MockUtil.any()))
-            .willReturn(mock)
+        coEvery {
+            itemRepository.save(any())
+        } returns mock
 
-        val entity: Item = itemService.created(dto)
+        val entity = itemService.created(dto)
 
-        then(itemRepository).should().save(MockUtil.any())
+        coVerify { itemRepository.save(any()) }
+
+        confirmVerified(itemRepository)
 
         assertEquals(mock.id, entity.id)
         assertEquals(mock.name, entity.name)
         assertEquals(mock.type, entity.type)
         assertEquals(mock.count, entity.count)
         assertEquals(mock.createdAt, entity.createdAt)
+    }
 
+    @Test
+    fun `all select from items`() {
+
+        val value = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)!!
+
+        val mock = Flux.create {
+            it.next(value)
+            it.complete()
+        }
+
+        every {
+            iteQuerydslR2dbcRepository.getAllBy(ItemInfo::class.java)
+        } returns mock
+
+        val entities: Flux<ItemInfo> = itemService.getAll()
+
+        verify { iteQuerydslR2dbcRepository.getAllBy(ItemInfo::class.java) }
+
+        confirmVerified(iteQuerydslR2dbcRepository)
+
+        StepVerifier.create(entities)
+            .expectSubscription()
+            .thenConsumeWhile {
+                it.id == value.id &&
+                    it.name == value.name &&
+                    it.type == value.type &&
+                    it.count == value.count &&
+                    it.limitCount == value.limitCount &&
+                    it.createdAt == value.createdAt
+            }
+            .expectComplete()
+            .verify()
+    }
+
+    @Test
+    fun `select id method`() = runTest {
+
+        val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
+
+        coEvery {
+            itemRepository.findById(any() as Long)
+        } returns mock
+
+        val entity = itemService.get(1L)!!
+
+        coVerify {
+            itemRepository.findById(any() as Long)
+        }
+
+        confirmVerified(itemRepository)
+
+        assertEquals(mock.id, entity.id)
+        assertEquals(mock.name, entity.name)
+        assertEquals(mock.type, entity.type)
+        assertEquals(mock.count, entity.count)
+        assertEquals(mock.createdAt, entity.createdAt)
     }
 }

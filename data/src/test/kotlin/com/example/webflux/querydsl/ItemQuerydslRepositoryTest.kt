@@ -5,11 +5,10 @@ import com.example.webflux.config.QuerydslTestConfiguration
 import com.example.webflux.domain.Item
 import com.example.webflux.projection.ItemInfo
 import com.example.webflux.projection.OnlyItemName
-import com.example.webflux.util.MockUtil.Companion.readJsonFileToClass
+import com.example.webflux.util.MockUtil.readJsonFileToClass
 import com.example.webflux.util.OnlyItemNameImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
