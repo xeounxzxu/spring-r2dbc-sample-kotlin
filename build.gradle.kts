@@ -4,6 +4,7 @@ plugins {
     java
     id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("kapt") version "1.7.10"
@@ -17,7 +18,6 @@ repositories {
     mavenCentral()
     maven("https://jitpack.io")
 }
-
 
 allprojects {
     val javaVersion = "11"
@@ -46,7 +46,6 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "kotlin-kapt")
-
 
     repositories {
         mavenCentral()

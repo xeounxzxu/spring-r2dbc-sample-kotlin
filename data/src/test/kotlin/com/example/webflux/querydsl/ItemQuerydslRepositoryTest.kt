@@ -34,8 +34,7 @@ class ItemQuerydslRepositoryTest constructor(
 
     @Test
     @Order(2)
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun `Dynamic projections test case`() = runTest {
+    fun `Dynamic projections test case`() {
 
         val mock = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)!!
 

@@ -15,8 +15,7 @@ import reactor.core.publisher.Flux
 
 @RestController
 @RequestMapping("/items")
-class ItemController
-constructor(
+class ItemController constructor(
     private val itemService: ItemService,
 ) {
 

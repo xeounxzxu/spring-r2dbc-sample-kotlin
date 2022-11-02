@@ -20,6 +20,10 @@ interface ItemQuerydslRepository : QuerydslR2dbcRepository<Item, Long> {
             .orderBy(item.id.asc())
     }.all()
 
+    /**
+     * todo : not working dynamic select
+     * issue tag : #71
+     */
     fun <T> getAllItemAndItemHistoryBy(type: Class<T>): Flux<T> = this.query {
         it.select(Projections.fields(type, item, itemHistory))
             .from(item)
