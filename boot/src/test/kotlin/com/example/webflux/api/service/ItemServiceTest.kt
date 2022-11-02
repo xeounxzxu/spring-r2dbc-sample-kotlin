@@ -5,6 +5,7 @@ import com.example.webflux.domain.Item
 import com.example.webflux.projection.ItemInfo
 import com.example.webflux.querydsl.ItemQuerydslRepository
 import com.example.webflux.repository.ItemRepository
+import com.example.webflux.util.ItemUtil.newItemDTO
 import com.example.webflux.util.MockUtil.readJsonFileToClass
 import com.example.webflux.util.OnlyItemNameImpl
 import io.mockk.coEvery
@@ -40,11 +41,7 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         val mock = readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
 
-        val dto = ItemDTO(
-            name = mock.name!!,
-            count = mock.count,
-            limitCount = mock.limitCount
-        )
+        val dto = newItemDTO(mock)
 
         coEvery {
             itemRepository.save(any())
