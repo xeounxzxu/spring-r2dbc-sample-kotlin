@@ -3,7 +3,6 @@ package com.example.webflux.api.service
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.domain.Item
 import com.example.webflux.projection.ItemInfo
-import com.example.webflux.projection.OnlyItemName
 import com.example.webflux.querydsl.ItemQuerydslRepository
 import com.example.webflux.repository.ItemRepository
 import com.example.webflux.util.MockUtil.readJsonFileToClass
@@ -15,7 +14,6 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
