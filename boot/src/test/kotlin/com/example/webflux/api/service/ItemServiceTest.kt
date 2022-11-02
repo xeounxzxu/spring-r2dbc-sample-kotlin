@@ -3,9 +3,11 @@ package com.example.webflux.api.service
 import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.domain.Item
 import com.example.webflux.projection.ItemInfo
+import com.example.webflux.projection.OnlyItemName
 import com.example.webflux.querydsl.ItemQuerydslRepository
 import com.example.webflux.repository.ItemRepository
 import com.example.webflux.util.MockUtil.readJsonFileToClass
+import com.example.webflux.util.OnlyItemNameImpl
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
@@ -146,5 +148,27 @@ internal class ItemServiceTest : AbstractMockKService() {
         assertEquals(mock.type, entity.type)
         assertEquals(mock.count, entity.count)
         assertEquals(mock.createdAt, entity.createdAt)
+    }
+
+    @Test
+    fun `Select Name Test Case`() {
+
+        val mock = OnlyItemNameImpl(readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!)
+
+        coEvery {
+            itemRepository.findItemByName(any())
+        } returns mock
+
+        val entity = runBlocking {
+            itemService.get(mock.getName())
+        }!!
+
+        coVerify {
+            itemRepository.findItemByName(any())
+        }
+
+        confirmVerified(itemRepository)
+
+        assertEquals(mock.getName(), entity.getName())
     }
 }
