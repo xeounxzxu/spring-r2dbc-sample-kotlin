@@ -3,7 +3,7 @@ package com.example.webflux.repository
 import com.example.webflux.config.R2dbcTestConfiguration
 import com.example.webflux.domain.Mileage
 import com.example.webflux.util.MockUtil
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -22,15 +22,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 internal class MileageRepositoryTest {
 
     @Autowired
-    private lateinit var milRepository: MileageRepository
+    private lateinit var mileageRepository: MileageRepository
 
     @Test
     @Order(1)
-    fun `나의 마일리지 저장 테스트 케이스`() = runTest {
+    fun `My Mileage Save`() {
 
         val mock: Mileage = MockUtil.readJsonFileToClass("json/mileage/save_.json", Mileage::class.java)!!
 
-        val entity: Mileage = milRepository.save(mock)
+        val entity: Mileage = runBlocking {
+            mileageRepository.save(mock)
+        }
 
         assertNotNull(entity.id)
         assertEquals(mock.userId, entity.userId)
@@ -41,13 +43,15 @@ internal class MileageRepositoryTest {
 
     @Test
     @Order(2)
-    fun `유저 아이디 별로 조회`() = runTest {
+    fun `Find User Id`() {
 
         val mockUserId = 1L
 
         val mock: Mileage = MockUtil.readJsonFileToClass("json/mileage/save_.json", Mileage::class.java)!!
 
-        val entity: Mileage = milRepository.findByUserId(mockUserId)!!
+        val entity: Mileage = runBlocking {
+            mileageRepository.findByUserId(mockUserId)!!
+        }
 
         assertNotNull(entity.id)
         assertEquals(mock.userId, entity.userId)

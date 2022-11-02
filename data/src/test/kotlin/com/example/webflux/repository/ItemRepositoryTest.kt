@@ -4,7 +4,6 @@ import com.example.webflux.config.R2dbcTestConfiguration
 import com.example.webflux.domain.Item
 import com.example.webflux.util.MockUtil.readJsonFileToClass
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -23,12 +22,14 @@ internal class ItemRepositoryTest {
     private lateinit var itemRepository: ItemRepository
 
     @Test
-    fun `Item Save Test Case`() = runTest {
+    fun `Item Save Test Case`() {
 
         val mock =
             readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
 
-        val entity = itemRepository.save(mock)
+        val entity = runBlocking {
+            itemRepository.save(mock)
+        }
 
         assertNotNull(entity.id)
         assertEquals(mock.name, entity.name)
@@ -38,11 +39,13 @@ internal class ItemRepositoryTest {
     }
 
     @Test
-    fun `Find Name Test Case By Item`() = runTest {
+    fun `Find Name Test Case By Item`() {
 
         val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
 
-        val entity = itemRepository.findByName(mock.name!!)!!
+        val entity = runBlocking {
+            itemRepository.findByName(mock.name!!)!!
+        }
 
         assertEquals(mock.id!!, entity.id)
         assertEquals(mock.name, entity.name)
@@ -52,11 +55,13 @@ internal class ItemRepositoryTest {
     }
 
     @Test
-    fun `find_id test case`() = runTest {
+    fun `find_id test case`() {
 
         val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
 
-        val entity = itemRepository.findById(mock.id!!)!!
+        val entity = runBlocking {
+            itemRepository.findById(mock.id!!)!!
+        }
 
         assertEquals(mock.id!!, entity.id)
         assertEquals(mock.name, entity.name)
@@ -70,7 +75,9 @@ internal class ItemRepositoryTest {
 
         val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
 
-        val entity = runBlocking { itemRepository.findItemByName(mock.name.toString()) }!!
+        val entity = runBlocking {
+            itemRepository.findItemByName(mock.name.toString())
+        }!!
 
         assertEquals(mock.name, entity.getName())
     }

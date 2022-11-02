@@ -4,8 +4,7 @@ import com.example.webflux.config.R2dbcTestConfiguration
 import com.example.webflux.domain.Product
 import com.example.webflux.projection.ProductSalePointInfo
 import com.example.webflux.util.MockUtil
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Order
@@ -28,13 +27,14 @@ internal class ProductRepositoryTest {
 
     @Test
     @Order(1)
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun `저장 테스트 케이스`() = runTest {
+    fun `저장 테스트 케이스`() {
 
         val mock: Product =
             MockUtil.readJsonFileToClass("json/product/save_.json", Product::class.java)!!
 
-        val entity = productRepository.save(mock)
+        val entity = runBlocking {
+            productRepository.save(mock)
+        }
 
         assertNotNull(entity.id)
         assertEquals(mock.title, entity.title)
@@ -45,16 +45,16 @@ internal class ProductRepositoryTest {
 
     @Test
     @Order(2)
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun `상품 조회 테스트 케이스 1`() = runTest {
+    fun `상품 조회 테스트 케이스 1`() {
 
         val mockId = 1L
 
         val mock: Product =
             MockUtil.readJsonFileToClass("json/product/save_.json", Product::class.java)!!
 
-        // todo : changed class file ...
-        val entity: ProductSalePointInfo = productRepository.findProductById(mockId)!!
+        val entity: ProductSalePointInfo = runBlocking {
+            productRepository.findProductById(mockId)!!
+        }
 
         assertNotNull(entity.getId())
         assertEquals(mock.title, entity.getTitle())

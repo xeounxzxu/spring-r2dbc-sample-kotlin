@@ -37,7 +37,7 @@ internal class ItemServiceTest : AbstractMockKService() {
     private lateinit var iteQuerydslR2dbcRepository: ItemQuerydslRepository
 
     @Test
-    fun `created item logic test case`() = runTest {
+    fun `created item logic test case`() {
 
         val mock = readJsonFileToClass("json/item/item-savedata1.json", Item::class.java)!!
 
@@ -47,9 +47,13 @@ internal class ItemServiceTest : AbstractMockKService() {
             itemRepository.save(any())
         } returns mock
 
-        val entity = itemService.created(dto)
+        val entity = runBlocking {
+            itemService.created(dto)
+        }
 
-        coVerify { itemRepository.save(any()) }
+        coVerify {
+            itemRepository.save(any())
+        }
 
         confirmVerified(itemRepository)
 
@@ -76,7 +80,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         val entities: Flux<ItemInfo> = itemService.getAll()
 
-        verify { iteQuerydslR2dbcRepository.getAllBy(ItemInfo::class.java) }
+        verify {
+            iteQuerydslR2dbcRepository.getAllBy(ItemInfo::class.java)
+        }
 
         confirmVerified(iteQuerydslR2dbcRepository)
 
@@ -95,7 +101,7 @@ internal class ItemServiceTest : AbstractMockKService() {
     }
 
     @Test
-    fun `select id method`() = runTest {
+    fun `select id method`() {
 
         val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
 
@@ -103,7 +109,9 @@ internal class ItemServiceTest : AbstractMockKService() {
             itemRepository.findById(any() as Long)
         } returns mock
 
-        val entity = itemService.get(1L)!!
+        val entity = runBlocking {
+            itemService.get(1L)!!
+        }
 
         coVerify {
             itemRepository.findById(any() as Long)
