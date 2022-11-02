@@ -13,6 +13,8 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -111,6 +113,33 @@ internal class ItemServiceTest : AbstractMockKService() {
         }
 
         confirmVerified(itemRepository)
+
+        assertEquals(mock.id, entity.id)
+        assertEquals(mock.name, entity.name)
+        assertEquals(mock.type, entity.type)
+        assertEquals(mock.count, entity.count)
+        assertEquals(mock.createdAt, entity.createdAt)
+    }
+
+    @Test
+    fun `select id test case`() {
+
+        val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
+
+        coEvery {
+            itemRepository.findById(any())
+        } returns mock
+
+        val entity = runBlocking {
+            itemService.get(mock.id!!)
+        }!!
+
+        coVerify {
+            itemRepository.findById(any())
+        }
+
+        confirmVerified(itemRepository)
+
 
         assertEquals(mock.id, entity.id)
         assertEquals(mock.name, entity.name)
