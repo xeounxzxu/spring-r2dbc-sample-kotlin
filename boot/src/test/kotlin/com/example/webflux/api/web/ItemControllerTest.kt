@@ -105,4 +105,35 @@ internal class ItemControllerTest {
             .jsonPath("$[0].limitCount").isEqualTo(value.limitCount.toString())
             .jsonPath("$[0].createdAt").isEqualTo(value.createdAt.toString())
     }
+
+    @Test
+    fun `get id`() {
+
+        val mock = readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!
+
+        coEvery {
+            itemService.get(any() as Long)
+        } returns mock
+
+        val action = webTestClient.get()
+            .uri("/items/${mock.id}")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+
+        coVerify {
+            itemService.get(any() as Long)
+        }
+
+        confirmVerified(itemService)
+
+        action.expectStatus()
+            .isOk()
+            .expectBody()
+            .jsonPath("$.id").isEqualTo(mock.id.toString())
+            .jsonPath("$.name").isEqualTo(mock.name.toString())
+            .jsonPath("$.type").isEqualTo(mock.type?.name.toString())
+            .jsonPath("$.count").isEqualTo(mock.count.toString())
+            .jsonPath("$.limitCount").isEqualTo(mock.limitCount.toString())
+            .jsonPath("$.createdAt").isEqualTo(mock.createdAt.toString())
+    }
 }
