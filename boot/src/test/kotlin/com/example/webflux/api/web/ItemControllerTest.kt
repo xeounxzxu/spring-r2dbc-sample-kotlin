@@ -6,6 +6,7 @@ import com.example.webflux.projection.ItemInfo
 import com.example.webflux.repository.ItemRepository
 import com.example.webflux.util.ItemUtil
 import com.example.webflux.util.MockUtil.readJsonFileToClass
+import com.example.webflux.util.OnlyItemNameImpl
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -135,5 +136,31 @@ internal class ItemControllerTest {
             .jsonPath("$.count").isEqualTo(mock.count.toString())
             .jsonPath("$.limitCount").isEqualTo(mock.limitCount.toString())
             .jsonPath("$.createdAt").isEqualTo(mock.createdAt.toString())
+    }
+
+    @Test
+    fun `get name`() {
+
+        val mock = OnlyItemNameImpl(readJsonFileToClass("json/item/item-data1.json", Item::class.java)!!)
+
+        coEvery {
+            itemService.get(any() as String)
+        } returns mock
+
+        val action = webTestClient.get()
+            .uri("/items/name?name=${mock.getName()}")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+
+        coVerify {
+            itemService.get(any() as String)
+        }
+
+        confirmVerified(itemService)
+
+        action.expectStatus()
+            .isOk()
+            .expectBody()
+            .jsonPath("$.name").isEqualTo(mock.getName())
     }
 }
