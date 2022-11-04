@@ -1,16 +1,31 @@
 package com.example.webflux.constants
 
+/**
+ * item's status type enum class
+ *
+ * @property name is item status
+ * @property ordinal is item index
+ *
+ * @author newbalancer
+ */
 enum class ItemType {
-
-    // not show user
+    /**
+     * Not show user type
+     */
     SOLD_OUT,
 
-    // item count is discount
+    /**
+     * Item count is discount
+     */
     DISCOUNT,
 
-    // user show item
+    /**
+     * User show item
+     */
     SALE,
 
-    // not use item
+    /**
+     * this not use item
+     */
     WAIT,
 }

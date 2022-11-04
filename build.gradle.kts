@@ -5,6 +5,7 @@ plugins {
     id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("org.jetbrains.dokka") version "1.7.20"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("kapt") version "1.7.10"
@@ -43,9 +44,16 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "kotlin")
-    apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "kotlin-kapt")
+
+    apply {
+        plugin("kotlin")
+        plugin("io.spring.dependency-management")
+        plugin("kotlin-kapt")
+        plugin("org.jetbrains.kotlin.jvm")
+        plugin("org.jetbrains.dokka")
+    }
+
+    val dokkaPlugin by configurations
 
     repositories {
         mavenCentral()
@@ -81,5 +89,7 @@ subprojects {
         testImplementation("org.junit.jupiter:junit-jupiter-api")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
         testImplementation("com.ninja-squad:springmockk:3.0.1")
+        dokkaPlugin("org.jetbrains.dokka:versioning-plugin:1.6.0")
     }
 }
+
