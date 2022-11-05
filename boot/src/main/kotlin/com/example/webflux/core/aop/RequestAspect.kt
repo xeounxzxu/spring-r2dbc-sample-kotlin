@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 /**
  * Request 를 로그를 남기는 AOP
  *
- * @see [RequestLogger.kt]
+ * @see [com.example.webflux.core.aop.RequestLogger.kt]
  * @see [com.example.webflux.api.web.TestController]
  * @see [com.example.webflux.api.web.ItemController]
  * @see [com.example.webflux.api.web.MileageController]
