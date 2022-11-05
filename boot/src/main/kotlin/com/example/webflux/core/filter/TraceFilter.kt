@@ -1,4 +1,4 @@
-package com.example.webflux.common.filter
+package com.example.webflux.core.filter
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component

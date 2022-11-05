@@ -90,6 +90,7 @@ subprojects {
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
         testImplementation("com.ninja-squad:springmockk:3.0.1")
         dokkaPlugin("org.jetbrains.dokka:versioning-plugin:1.6.0")
+        implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
     }
 }
 
