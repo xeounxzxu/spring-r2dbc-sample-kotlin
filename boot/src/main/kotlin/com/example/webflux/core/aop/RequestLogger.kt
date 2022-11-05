@@ -1,7 +1,7 @@
 package com.example.webflux.core.aop
 
 /**
- * request logger annotation
+ * Request Log 를 위한 어노테이션
  *
  * @author newbalancer
  *
