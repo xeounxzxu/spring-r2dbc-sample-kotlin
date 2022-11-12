@@ -16,6 +16,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
@@ -33,6 +34,14 @@ internal class ItemServiceTest : AbstractMockKService() {
 
     @MockK
     private lateinit var iteQuerydslR2dbcRepository: ItemQuerydslRepository
+
+    @BeforeEach
+    override fun init() {
+        /**
+         * custom init logic
+         */
+        super.init()
+    }
 
     @Test
     fun `created item logic test case`() {
