@@ -52,7 +52,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.save(any())
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.created(dto)
@@ -83,7 +85,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         every {
             iteQuerydslR2dbcRepository.getAllBy(ItemInfo::class.java)
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entities: Flux<ItemInfo> = itemService.getAll()
 
@@ -167,7 +171,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.findItemByName(any())
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.get(mock.getName())
