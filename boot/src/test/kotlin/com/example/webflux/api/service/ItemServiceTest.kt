@@ -1,6 +1,5 @@
 package com.example.webflux.api.service
 
-import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.domain.Item
 import com.example.webflux.projection.ItemInfo
 import com.example.webflux.querydsl.ItemQuerydslRepository
@@ -16,7 +15,6 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
