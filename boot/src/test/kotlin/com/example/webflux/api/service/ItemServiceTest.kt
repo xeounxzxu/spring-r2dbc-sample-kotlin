@@ -118,7 +118,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.findById(any() as Long)
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.get(1L)!!
@@ -144,7 +146,10 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.findById(any())
-        } returns mock
+        }
+        answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.get(mock.id!!)
