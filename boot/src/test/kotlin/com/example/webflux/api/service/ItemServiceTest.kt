@@ -146,8 +146,7 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.findById(any())
-        }
-        answers {
+        } answers {
             mock
         }
 
