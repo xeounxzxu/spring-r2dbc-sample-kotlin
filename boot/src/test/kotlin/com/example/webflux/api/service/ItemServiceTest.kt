@@ -1,6 +1,5 @@
 package com.example.webflux.api.service
 
-import com.example.webflux.api.service.data.ItemDTO
 import com.example.webflux.domain.Item
 import com.example.webflux.projection.ItemInfo
 import com.example.webflux.querydsl.ItemQuerydslRepository
@@ -16,8 +15,8 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
@@ -36,6 +35,14 @@ internal class ItemServiceTest : AbstractMockKService() {
     @MockK
     private lateinit var iteQuerydslR2dbcRepository: ItemQuerydslRepository
 
+    @BeforeEach
+    override fun init() {
+        /**
+         * custom init logic
+         */
+        super.init()
+    }
+
     @Test
     fun `created item logic test case`() {
 
@@ -45,7 +52,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.save(any())
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.created(dto)
@@ -76,7 +85,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         every {
             iteQuerydslR2dbcRepository.getAllBy(ItemInfo::class.java)
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entities: Flux<ItemInfo> = itemService.getAll()
 
@@ -107,7 +118,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.findById(any() as Long)
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.get(1L)!!
@@ -133,7 +146,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.findById(any())
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.get(mock.id!!)
@@ -160,7 +175,9 @@ internal class ItemServiceTest : AbstractMockKService() {
 
         coEvery {
             itemRepository.findItemByName(any())
-        } returns mock
+        } answers {
+            mock
+        }
 
         val entity = runBlocking {
             itemService.get(mock.getName())

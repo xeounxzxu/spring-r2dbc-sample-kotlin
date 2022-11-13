@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 abstract class AbstractMockKService {
 
     @BeforeEach
-    fun init() {
+    open fun init() {
         MockKAnnotations.init(this)
     }
 }
