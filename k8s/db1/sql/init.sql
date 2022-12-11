@@ -4,9 +4,9 @@ create SCHEMA WEBFLUX;
 
 create table WEBFLUX.mileage
 (
-    id         bigint NOT NULL AUTO_INCREMENT,
-    user_id    bigint NOT NULL unique,
-    point      bigint not null,
+    id         bigint    NOT NULL AUTO_INCREMENT,
+    user_id    bigint    NOT NULL unique,
+    point      bigint    not null,
     created_at timestamp null,
     updated_at timestamp null,
     CONSTRAINT mileage_pk PRIMARY KEY (id)
@@ -14,27 +14,27 @@ create table WEBFLUX.mileage
 
 CREATE TABLE WEBFLUX.item
 (
-    id          INT          NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(255) NOT NULL,
+    id          INT            NOT NULL AUTO_INCREMENT,
+    name        VARCHAR(255)   NOT NULL,
     type        VARBINARY(255) null,
-    count       bigint null,
-    limit_count bigint null,
-    created_at  BIGINT(19) null,
+    count       bigint         null,
+    limit_count bigint         null,
+    created_at  BIGINT(19)     null,
     CONSTRAINT item_pk PRIMARY KEY (id)
 );
 
 -- item_history
 create table WEBFLUX.item_history
 (
-    id          bigint       NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(255) NOT NULL,
+    id          bigint         NOT NULL AUTO_INCREMENT,
+    name        VARCHAR(255)   NOT NULL,
     type        VARBINARY(255) null,
-    count       bigint null,
-    limit_count bigint null,
-    item_id     INT          not null,
+    count       bigint         null,
+    limit_count bigint         null,
+    item_id     INT            not null,
     -- bigint(19)
-    created_at  bigint null,
-    CONSTRAINT item_pk PRIMARY KEY (id),
+    created_at  bigint         null,
+    CONSTRAINT item_history_pk PRIMARY KEY (id),
     constraint item_history_item_null_fk
         foreign key (item_id) references item (id)
 );
