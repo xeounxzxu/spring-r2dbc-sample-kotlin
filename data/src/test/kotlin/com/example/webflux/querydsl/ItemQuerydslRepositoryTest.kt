@@ -78,6 +78,7 @@ class ItemQuerydslRepositoryTest constructor(
 
     @Test
     @Order(4)
+    // todo : left join test case
     fun `findAll item and history`() {
 
         val mock = readJsonFileToClass("json/item/item-querydsl-getAllBy.json", ItemInfo::class.java)!!
