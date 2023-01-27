@@ -81,6 +81,7 @@ subprojects {
         testImplementation("io.projectreactor:reactor-test")
         testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
 
+
         testImplementation("org.mockito:mockito-core:4.6.1")
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
             exclude(module = "junit")

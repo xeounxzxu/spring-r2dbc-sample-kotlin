@@ -15,8 +15,13 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
+import org.springframework.data.r2dbc.core.DefaultReactiveDataAccessStrategy
+import org.springframework.data.r2dbc.core.R2dbcEntityOperations
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
+import org.springframework.data.r2dbc.dialect.DialectResolver
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.r2dbc.connection.R2dbcTransactionManager
+import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.transaction.ReactiveTransactionManager
 import java.time.Duration
 
@@ -25,7 +30,8 @@ import java.time.Duration
 @EnableR2dbcRepositories(
     basePackages = [
         "com.example.webflux.repository"
-    ]
+    ],
+    entityOperationsRef = "r2dbcEntityOperations"
 )
 class R2dbcDataSourceConfiguration constructor(
     @Qualifier("read.datasource-com.example.webflux.config.ReadDataSourceProperties")
@@ -71,10 +77,25 @@ class R2dbcDataSourceConfiguration constructor(
             }
 
     @Bean
-    fun reactiveTransactionManager(
+    fun transactionManager(
         @Qualifier("connectionFactory")
         connectionFactory: ConnectionFactory,
     ): ReactiveTransactionManager = R2dbcTransactionManager(connectionFactory)
+
+    @Bean
+    fun r2dbcEntityOperations(connectionFactory: ConnectionFactory): R2dbcEntityOperations {
+
+        val dialect = DialectResolver.getDialect(connectionFactory)
+
+        val strategy = DefaultReactiveDataAccessStrategy(dialect)
+
+        val databaseClient = DatabaseClient.builder()
+            .connectionFactory(connectionFactory)
+            .bindMarkers(dialect.bindMarkersFactory)
+            .build()
+
+        return R2dbcEntityTemplate(databaseClient, strategy)
+    }
 }
 
 
