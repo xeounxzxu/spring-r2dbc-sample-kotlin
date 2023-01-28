@@ -10,6 +10,7 @@ import io.r2dbc.spi.ConnectionFactoryOptions.HOST
 import io.r2dbc.spi.ConnectionFactoryOptions.PASSWORD
 import io.r2dbc.spi.ConnectionFactoryOptions.PORT
 import io.r2dbc.spi.ConnectionFactoryOptions.USER
+import io.r2dbc.spi.Option
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -71,6 +72,10 @@ class R2dbcDataSourceConfiguration constructor(
             .option(PASSWORD, properties.password())
             .option(DATABASE, properties.database()) // optional, default null, null means not specifying the database
             .option(CONNECT_TIMEOUT, Duration.ofSeconds(3)) // optional, default null, null means no timeout
+            .option(Option.valueOf("allowPublicKeyRetrieval"), "true")
+            .option(Option.valueOf("useSSL"), "false")
+            .option(Option.valueOf("rewriteBatchedStatements"), "true")
+            .option(Option.valueOf("profileSQL"), "true")
             .build()
             .run {
                 ConnectionFactories.get(this)
