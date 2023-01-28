@@ -1,31 +1,35 @@
 spring:
-  main:
-    allow-bean-definition-overriding: true
+    main:
+        allow-bean-definition-overriding: true
 
 logging:
-  level:
-    io.r2dbc.mysql.QUERY: DEBUG
-    io.r2dbc.mysql.PARAM: DEBUG
-#    dev.miku.r2dbc.mysql.client.ReactorNettyClient: TRACE
-    org:
-      # R2dbc
-      springframework.r2dbc: TRACE
-      # transaction
-      springframework.transaction: TRACE
+    level:
+
+        io.r2dbc.mysql.QUERY: DEBUG
+        io.r2dbc.mysql.PARAM: DEBUG
+        #    dev.miku.r2dbc.mysql.client.ReactorNettyClient: TRACE
+        org:
+            springframework:
+                web: TRACE
+            # R2dbc
+            springframework.r2dbc: TRACE
+            # transaction
+            springframework.transaction: TRACE
 
 read:
-  datasource:
-    driver: mysql
-    host: localhost
-    port: 23306
-    database: WEBFLUX
-    username: root
-    password: 1234
+    datasource:
+        driver: mysql
+        host: localhost
+        port: 23306
+        database: WEBFLUX
+        username: root
+        password: 1234
 write:
-  datasource:
-    driver: mysql
-    host: localhost
-    port: 23306
-    database: WEBFLUX
-    username: root
-    password: 1234
+    datasource:
+        driver: mysql
+        host: localhost
+        port: 23306
+        database: WEBFLUX
+        username: root
+        password: 1234
+
