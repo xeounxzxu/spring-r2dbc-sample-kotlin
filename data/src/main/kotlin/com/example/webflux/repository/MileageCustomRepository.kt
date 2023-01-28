@@ -3,15 +3,17 @@ package com.example.webflux.repository
 import com.example.webflux.domain.Mileage
 import org.slf4j.LoggerFactory
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations
+import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 interface MileageCustomRepository {
 
+    @Transactional
     fun saveInBatch(mileages: List<Mileage>): Mono<Int>
 }
 
-class MileageCustomRepositoryImpl constructor(
+open class MileageCustomRepositoryImpl constructor(
     private val r2dbcEntityOperations: R2dbcEntityOperations
 ) : MileageCustomRepository {
 
