@@ -81,7 +81,7 @@ class R2dbcDataSourceConfiguration constructor(
                 ConnectionFactories.get(this)
             }
 
-    @Bean
+    @Bean("reactiveTransactionManager")
     fun transactionManager(
         @Qualifier("connectionFactory")
         connectionFactory: ConnectionFactory,
