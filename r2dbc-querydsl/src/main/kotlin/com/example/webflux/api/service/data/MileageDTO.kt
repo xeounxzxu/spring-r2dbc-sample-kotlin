@@ -20,5 +20,5 @@ data class UpdateMileageDTO constructor(
     val point: Long = 0L
 ) {
 
-    fun toEntity(entity: Mileage): Mileage = entity.copy(point = point)
+//    fun toEntity(entity: Mileage): Mileage = entity.copy(point = point)
 }

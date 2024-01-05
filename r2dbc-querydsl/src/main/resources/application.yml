@@ -1,6 +1,7 @@
 spring:
     main:
         allow-bean-definition-overriding: true
+        allow-circular-references: true
 
 logging:
     level:
@@ -32,4 +33,5 @@ write:
         database: WEBFLUX
         username: root
         password: 1234
+
 

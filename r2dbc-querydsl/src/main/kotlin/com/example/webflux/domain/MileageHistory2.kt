@@ -6,9 +6,9 @@ import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
 
 @Table(name = "mileage_history_2")
-data class MileageHistory2(
+class MileageHistory2(
     @Id
-    val id: Long? = null,
+    var id: Long? = null,
     @Column("ref_id")
     val refId: Long,
     @Column("user_id")

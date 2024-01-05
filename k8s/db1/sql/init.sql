@@ -16,7 +16,7 @@ create table WEBFLUX.mileage_history_2
 (
     id         bigint NOT NULL AUTO_INCREMENT,
     ref_id     bigint not null,
-    user_id    bigint NOT NULL unique,
+    user_id    bigint NOT NULL ,
     point      bigint not null,
     created_at timestamp null,
     updated_at timestamp null,

@@ -34,7 +34,7 @@ import java.time.Duration
     ],
     entityOperationsRef = "r2dbcEntityOperations"
 )
-class R2dbcDataSourceConfiguration constructor(
+class R2dbcDataSourceConfiguration(
     @Qualifier("read.datasource-com.example.webflux.config.ReadDataSourceProperties")
     private val readDataSourceProperties: BaseDataSourceProperties,
     @Qualifier("write.datasource-com.example.webflux.config.WriteDataSourceProperties")
