@@ -60,37 +60,30 @@ subprojects {
     }
 
     dependencies {
-        implementation("org.springframework.boot:spring-boot-starter-data-redis")
-        implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+        // kotlin
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-        // developmentOnly("org.springframework.boot:spring-boot-devtools")
-        implementation("io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64")
+
+
+        // spring
         implementation("org.springframework.boot:spring-boot-starter-aop")
-        implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
-        implementation("org.springframework.data:spring-data-r2dbc")
-
-        // add querydsl lib
-        implementation("com.infobip:infobip-spring-data-r2dbc-querydsl-boot-starter:7.2.0")
-        kapt("com.infobip:infobip-spring-data-jdbc-annotation-processor-common:7.2.0")
-
-        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
-        testImplementation("io.projectreactor:reactor-test")
-        testImplementation("io.r2dbc:r2dbc-h2:0.9.1.RELEASE")
 
 
+        // test
         testImplementation("org.mockito:mockito-core:4.6.1")
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
             exclude(module = "junit")
             exclude(module = "mockito-core")
         }
+        testImplementation("com.ninja-squad:springmockk:3.0.1")
+
         testImplementation("org.junit.jupiter:junit-jupiter-api")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-        testImplementation("com.ninja-squad:springmockk:3.0.1")
-        dokkaPlugin("org.jetbrains.dokka:versioning-plugin:1.6.0")
+
+        // log
         implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
     }
 }

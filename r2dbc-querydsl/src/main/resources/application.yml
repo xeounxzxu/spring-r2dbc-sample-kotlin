@@ -2,36 +2,15 @@ spring:
     main:
         allow-bean-definition-overriding: true
         allow-circular-references: true
+    profiles:
+        include:
+            # TODO : 손쉽게 분리하는법?
+            - r2dbc
+
 
 logging:
     level:
-
-        io.r2dbc.mysql.QUERY: DEBUG
-        io.r2dbc.mysql.PARAM: DEBUG
-        #    dev.miku.r2dbc.mysql.client.ReactorNettyClient: TRACE
         org:
             springframework:
                 web: TRACE
-            # R2dbc
-            springframework.r2dbc: TRACE
-            # transaction
             springframework.transaction: TRACE
-
-read:
-    datasource:
-        driver: mysql
-        host: localhost
-        port: 23306
-        database: WEBFLUX
-        username: root
-        password: 1234
-write:
-    datasource:
-        driver: mysql
-        host: localhost
-        port: 23306
-        database: WEBFLUX
-        username: root
-        password: 1234
-
-
