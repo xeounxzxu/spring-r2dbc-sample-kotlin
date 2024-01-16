@@ -13,7 +13,9 @@ import io.r2dbc.spi.ConnectionFactoryOptions.USER
 import io.r2dbc.spi.Option
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.FilterType
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.config.EnableR2dbcAuditing
 import org.springframework.data.r2dbc.core.DefaultReactiveDataAccessStrategy
@@ -29,8 +31,11 @@ import java.time.Duration
 @EnableR2dbcAuditing
 @Configuration
 @EnableR2dbcRepositories(
-    basePackages = [
-        "com.example.webflux.repository"
+    includeFilters = [
+        ComponentScan.Filter(
+            type = FilterType.ANNOTATION,
+            value = [R2dbcRepo::class]
+        )
     ],
     entityOperationsRef = "r2dbcEntityOperations"
 )

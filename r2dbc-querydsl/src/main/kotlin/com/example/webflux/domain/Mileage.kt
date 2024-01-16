@@ -10,16 +10,16 @@ import java.time.LocalDateTime
 @Table
 class Mileage(
     @Id
-    val id: Long? = null,
+    var id: Long? = null,
     @Column("user_id")
     val userId: Long,
     var point: Long,
     @CreatedDate
     @Column("created_at")
-    val createdAt: LocalDateTime? = null,
+    var createdAt: LocalDateTime= LocalDateTime.now(),
     @LastModifiedDate
     @Column("updated_at")
-    var updatedAt: LocalDateTime? = null
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
 )
 
 fun Mileage.update(point: Long) {
