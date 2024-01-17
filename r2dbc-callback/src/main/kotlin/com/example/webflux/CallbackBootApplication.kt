@@ -7,8 +7,8 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-class BootApplication
+class CallbackBootApplication
 
 fun main(args: Array<String>) {
-    runApplication<BootApplication>(*args)
+    runApplication<CallbackBootApplication>(*args)
 }

@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableScheduling
 @SpringBootApplication
 @ConfigurationPropertiesScan
-class BootApplication
+class QuerydslBootApplication
 
 fun main(args: Array<String>) {
-    runApplication<BootApplication>(*args)
+    runApplication<QuerydslBootApplication>(*args)
 }
