@@ -9,7 +9,9 @@ tasks.jar {
 }
 
 dependencies {
-    //
-    implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
-    implementation("org.springframework.data:spring-data-r2dbc")
+
+
+    // TODO : api vs implementation
+    api("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
+    api("org.springframework.data:spring-data-r2dbc")
 }

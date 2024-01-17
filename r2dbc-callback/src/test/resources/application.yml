@@ -1,0 +1,11 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    io.r2dbc.h2.QUERY: DEBUG
+    io.r2dbc.h2.PARAM: DEBUG
+    org:
+      springframework.r2dbc: TRACE
+      springframework.transaction: TRACE
