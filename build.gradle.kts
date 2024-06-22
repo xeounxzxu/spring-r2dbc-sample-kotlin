@@ -1,40 +1,56 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    java
-    id("org.springframework.boot") version "2.7.1"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
-    id("org.jetbrains.dokka") version "1.7.20"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
-    kotlin("kapt") version "1.7.10"
-}
-
-springBoot {
-    mainClass.value("com.example.webflux.BootApplication")
-}
-
-repositories {
-    mavenCentral()
-    maven("https://jitpack.io")
+    id("org.springframework.boot") apply false
+    id("io.spring.dependency-management")
+    id("org.asciidoctor.jvm.convert") apply false
+//    id("org.jetbrains.kotlin.plugin.allopen")  // TODO(변경_포인트)
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    kotlin("jvm")
+    kotlin("kapt") apply false
+    kotlin("plugin.spring") apply false
+    kotlin("plugin.allopen") apply false
+    idea
 }
 
 allprojects {
-    val javaVersion = "11"
+    group = "${property("projectGroup")}"
+    version = "${property("applicationVersion")}"
 
-    group = "com.example"
-    version = "0.0.1-SNAPSHOT"
+    repositories {
+        mavenCentral()
+    }
+}
 
-    tasks.withType<JavaCompile> {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
+subprojects {
+
+    apply(plugin = "org.jetbrains.kotlin.plugin.allopen")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "org.asciidoctor.jvm.convert")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "org.jetbrains.kotlin.kapt")
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+    }
+
+    dependencies {
+        // fixme: gradle 내부의 function 을 고민 해보장!!
+        if (!project.name.contains("callback")) {
+            implementation("org.springframework.boot:spring-boot-starter-web")
+        }
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = "${project.property("javaVersion")}"
         }
     }
 
@@ -42,49 +58,3 @@ allprojects {
         useJUnitPlatform()
     }
 }
-
-subprojects {
-
-    apply {
-        plugin("kotlin")
-        plugin("io.spring.dependency-management")
-        plugin("kotlin-kapt")
-        plugin("org.jetbrains.kotlin.jvm")
-        plugin("org.jetbrains.dokka")
-    }
-
-    val dokkaPlugin by configurations
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-
-        // kotlin
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-
-        // spring
-        implementation("org.springframework.boot:spring-boot-starter-aop")
-
-
-        // test
-        testImplementation("org.mockito:mockito-core:4.6.1")
-        testImplementation("org.springframework.boot:spring-boot-starter-test") {
-            exclude(module = "junit")
-            exclude(module = "mockito-core")
-        }
-        testImplementation("com.ninja-squad:springmockk:3.0.1")
-
-        testImplementation("org.junit.jupiter:junit-jupiter-api")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-
-        // log
-        implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
-    }
-}
-

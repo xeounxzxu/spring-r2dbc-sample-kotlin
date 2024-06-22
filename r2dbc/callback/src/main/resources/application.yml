@@ -1,0 +1,16 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  profiles:
+    include:
+      # TODO : ??? ??????
+      - r2dbc
+
+logging:
+  level:
+    org:
+      springframework:
+        web: TRACE
+      springframework.transaction: TRACE
+

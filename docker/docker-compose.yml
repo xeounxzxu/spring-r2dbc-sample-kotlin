@@ -1,0 +1,18 @@
+version: '3'
+services:
+  mysql:
+    image: arm64v8/mysql
+    restart: always
+    ports:
+      - "23306:3306"
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: default
+      MYSQL_USER: default
+      MYSQL_PASSWORD: 1234
+    container_name: "mysql_db1"
+    volumes:
+      - ./db1/mysql:/var/lib/mysqlysql
+      # init.sql
+      - ./db1/sql:/docker-entrypoint-initdb.d
